@@ -38,28 +38,80 @@ class Roles extends Controller
     die();
   }
 
-  public function guardar(){
+  public function guardar()
+  {
     $rol = $_POST['rol'];
+    $id_rol = $_POST['id_rol'];
 
     if (empty($rol)) {
       $res = array('tipo' => 'warning', 'mensaje' => 'Tienes que introducir un rol');
-    }else {
-      $verificarRol = $this->model->getVerificar('rol', $rol);
+    } else {
+      if ($id_rol == '') {
+        $verificarRol = $this->model->getVerificar('rol', $rol, 0);
 
-      if (empty($verificarRol)) {
-        $data = $this->model->registrar($rol);
-  
-        if($data > 0){
-          $res = array('tipo' => 'success', 'mensaje' => 'Rol registrado con exito');
-        }else {
-          $res = array('tipo' => 'error', 'mensaje' => 'Error al registrar');
+
+        if (empty($verificarRol)) {
+          $data = $this->model->registrar($rol);
+
+          if ($data > 0) {
+            $res = array('tipo' => 'success', 'mensaje' => 'Rol registrado con exito');
+          } else {
+            $res = array('tipo' => 'error', 'mensaje' => 'Error al registrar');
+          }
+        } else {
+          $res = array('tipo' => 'warning', 'mensaje' => 'El rol ya existe');
         }
-      }else {
-        $res = array('tipo' => 'warning', 'mensaje' => 'El rol ya existe');
+      } else {
+        $verificarRol = $this->model->getVerificar('rol', $rol, $id_rol);
+
+
+        if (empty($verificarRol)) {
+          $data = $this->model->modificar($rol, $id_rol);
+
+          if ($data == 1) {
+            $res = array('tipo' => 'success', 'mensaje' => 'Rol modificado con exito');
+          } else {
+            $res = array('tipo' => 'error', 'mensaje' => 'Error al modificar');
+          }
+        } else {
+          $res = array('tipo' => 'warning', 'mensaje' => 'El rol ya existe');
+        }
       }
     }
 
     echo json_encode($res, JSON_UNESCAPED_UNICODE);
+    die();
+  }
+
+  public function eliminar($id)
+  {
+    $data = $this->model->delete($id);
+    if ($data == 1) {
+      $res = array('tipo' => 'success', 'mensaje' => 'Rol desactivado con exito');
+    } else {
+      $res = array('tipo' => 'warning', 'mensaje' => 'Error al intertar eliminar');
+    }
+    echo json_encode($res, JSON_UNESCAPED_UNICODE);
+    die();
+  }
+
+  public function reingresar($id)
+  {
+    $data = $this->model->reingresar($id);
+    if ($data == 1) {
+      $res = array('tipo' => 'success', 'mensaje' => 'Rol reactivado con exito');
+    } else {
+      $res = array('tipo' => 'warning', 'mensaje' => 'Error al intertar reingresar el rol');
+    }
+
+    echo json_encode($res, JSON_UNESCAPED_UNICODE);
+    die();
+  }
+
+  public function editar($id)
+  {
+    $data = $this->model->getRol($id);
+    echo json_encode($data, JSON_UNESCAPED_UNICODE);
     die();
   }
 }

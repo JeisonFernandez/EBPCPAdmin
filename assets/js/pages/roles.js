@@ -41,6 +41,9 @@ document.addEventListener("DOMContentLoaded", function () {
   btnNewRol.addEventListener('click', function(e){
     e.preventDefault();
 
+    frmRoles.id_rol.value =  '';
+    frmRoles.reset();
+
     title.textContent = "Nuevo Rol";
     $('#modalRegistro').modal('show');
   });
@@ -73,3 +76,33 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 });
+
+function eliminar(id){
+  const url = base_url + 'Roles/eliminar/' + id;
+  eliminarRegistro('¿Seguro de eliminar?', 'El rol no se eliminara permanentemente, pasara a un estado inactivo.', 'Si, Eliminar', url, tblRoles);
+}
+
+function reingresar(id){
+  const url = base_url + 'Roles/reingresar/' + id;
+  reingresarRegistro('¿Seguro de reingresar?', 'El rol pasara a un estado activo.', 'Si, Reingresar', url, tblRoles);
+}
+
+function editar(id){
+  const http = new XMLHttpRequest();
+  const url = base_url + 'Roles/editar/' + id;
+
+  http.open("POST", url, true);
+  http.send();
+  http.onreadystatechange = function(){
+    if (this.readyState == 4 && this.status == 200) {
+      const res = JSON.parse(this.responseText);
+      
+      frmRoles.id_rol.value = res.id;
+      frmRoles.rol.value = res.rol;
+
+      title.textContent = "Modificar Rol";
+      $('#modalRegistro').modal('show');
+    }
+  }
+
+}

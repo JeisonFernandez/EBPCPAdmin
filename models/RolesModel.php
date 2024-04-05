@@ -13,6 +13,11 @@ class RolesModel extends Query
     return $data;
   }
 
+  public function getRol($id){
+    $sql = "SELECT * FROM roles WHERE id = $id";
+    return $this->select($sql);
+  }
+
   public function registrar($rol)
   {
     $sql = "INSERT INTO roles (rol) VALUES (?)";
@@ -20,10 +25,32 @@ class RolesModel extends Query
     return $this->insertar($sql, $datos);
   }
 
-  public function getVerificar($item, $nombre)
+  public function getVerificar($item, $nombre, $id)
   {
-    $sql = "SELECT * FROM roles WHERE $item = '$nombre' AND estado = 1";
+    if ($id > 0) {
+      $sql = "SELECT * FROM roles WHERE $item = '$nombre' AND id != $id AND estado = 1";
+    } else {
+      $sql = "SELECT * FROM roles WHERE $item = '$nombre' AND estado = 1";
+    }
+    
     return $this->select($sql);
   }
 
+  public function delete($id){
+    $sql = "UPDATE roles SET estado = ? WHERE id = ? ";
+    $datos = array(0, $id);
+    return $this->save($sql, $datos);
+  }
+
+  public function reingresar($id){
+    $sql = "UPDATE roles SET estado = ? WHERE id = ? ";
+    $datos = array(1, $id);
+    return $this->save($sql, $datos);
+  }
+
+  public function modificar($rol, $id){
+    $sql = "UPDATE roles SET rol = ? WHERE id = ?";
+    $datos = array($rol, $id);
+    return $this->save($sql, $datos);
+  }
 }

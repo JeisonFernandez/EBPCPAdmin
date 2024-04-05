@@ -41,7 +41,7 @@
 
       <form id="frmRoles" autocomplete="off">
 
-        <!-- <input type="hidden" id="id_rol" name="id_rol"> -->
+        <input type="hidden" id="id_rol" name="id_rol">
 
         <div class="modal-body mb-2">
 

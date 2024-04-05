@@ -8,3 +8,5 @@
   define("DB_PASS","");
   define("DB_NAME","control_escolar");
   define("DB_CHARSET","charset=utf8");
+
+  
