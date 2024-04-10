@@ -59,7 +59,7 @@
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Datos:</h6>
-                        <a class="collapse-item" href="Usuarios"><i class="fas fa-user-graduate"></i> Alumnos</a>
+                        <a class="collapse-item" href="Estudiantes"><i class="fas fa-user-graduate"></i> Alumnos</a>
                         <a class="collapse-item" href="Roles"><i class="fas fa-users"></i> Representantes</a>
                         <a class="collapse-item" href="Roles"><i class="fas fa-history"></i> Historico</a>
                     </div>
