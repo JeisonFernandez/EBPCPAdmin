@@ -80,6 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
     frmUsuario.id_usuario.value = "";
     frmUsuario.reset();
     manejarOpcionInactiva(false);
+    bloquearEntrada(frmUsuario);
     
     title.textContent = "Nuevo Usuario";
     $("#modalRegistro").modal("show");
@@ -171,7 +172,7 @@ function editar(id) {
         frmUsuario.rol.value = res.id_rol;
       }
 
-
+      bloquearEntrada(frmUsuario);
       title.textContent = "Editar Usuario";
       $("#modalRegistro").modal("show");
     }

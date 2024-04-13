@@ -63,3 +63,36 @@ function reingresarRegistro(titulo, texto, accion, url, table) {
     }
   });
 }
+
+
+// funcion para todos los inputs que reciban numeres, solo con ponerle la clase (validanumericos) posible cambio
+onload = function () {
+  let cantidad = document.querySelectorAll(".validanumericos").length;
+  for (let i = 0; i < cantidad; i++) {
+    var ele = document.querySelectorAll(".validanumericos")[i];
+    ele.onkeypress = function (e) {
+      if (isNaN(this.value + String.fromCharCode(e.charCode))) return false;
+    };
+    ele.onpaste = function (e) {
+      e.preventDefault();
+    };
+  }
+};
+
+// funcion para bloquear en tiempo real caracteres especiales, SQL, JS, en los inputs (recibe el frm entero tambien)  
+function bloquearEntrada(inputElement) {
+  inputElement.addEventListener("input", function (event) {
+    const inputValue = event.target.value;
+    // Validación: No permitir <, >, script, SELECT, DELETE, UPDATE, INSERT, DROP, ALTER, ni caracteres especiales
+    if (event.target.type !== "date") {
+      if (event.target.id === "direccion" || event.target.type === "password") {
+        const cleanValue = inputValue.replace(/[<>&=]|script|SELECT|DELETE|UPDATE|INSERT|DROP|ALTER|/gi, "");
+        event.target.value = cleanValue;
+      }else{
+        const cleanValue = inputValue.replace(/[<>&=]|script|SELECT|DELETE|UPDATE|INSERT|DROP|ALTER|[^\w\s]/gi, "");
+        event.target.value = cleanValue;
+      }
+    }
+  });
+}
+

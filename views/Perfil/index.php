@@ -3,7 +3,7 @@
 <!-- Page Heading -->
 
 
-<div class="card shadow mb-4">
+<!-- <div class="card shadow mb-4">
   <div class="card-header py-3">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">Usuarios</h1>
@@ -28,7 +28,7 @@
       </table>
     </div>
   </div>
-</div>
+</div> -->
 
 
 <div id="modalRegistro" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">

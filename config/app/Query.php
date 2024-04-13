@@ -49,4 +49,15 @@ class Query extends Conexion
     }
     return $res;
   }
+
+  public function multiQueryU($sqlList)
+  {
+    // Supongamos que $sqlList es un array de consultas SQL
+    // Ejemplo: $sqlList = ["INSERT INTO tabla1 ...", "UPDATE tabla2 ..."];
+
+    foreach ($sqlList as $sql) {
+      $stmt = $this->con->prepare($sql);
+      $stmt->execute();
+    }
+  }
 }

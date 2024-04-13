@@ -17,7 +17,7 @@
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Grado</th>
-            <th>Fecha de Nacimiento</th>
+            <th>Fecha Nacimiento</th>
             <th>Dirección</th>
             <th>Talla</th>
             <th>Peso</th>
