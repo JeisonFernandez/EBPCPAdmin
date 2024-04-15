@@ -11,18 +11,20 @@ Asegúrate de tener instalado lo siguiente:
 - **Composer**: La herramienta de gestión de dependencias para PHP. Si aún no lo tienes, puedes descargarlo desde Composer.
 
 ## Instalación
-1. Clona este repositorio en tu máquina local:
+ 1. Clona este repositorio en tu máquina local:
 
-   ~~~bash
+   `
    git clone https://github.com/tu-usuario/mi-proyecto-increible.git
+   `
 
-2. Navega hasta la carpeta del proyecto:
+ 1. Navega hasta la carpeta del proyecto: 
 
-  ~~~bash
+  `
    cd mi-proyecto-increible
-  ~~~
+  `
 
-3. Instala las dependencias utilizando Composer:
+ 3. Instala las dependencias utilizando Composer:
 
-  ~~~bash
+  `
   composer install
+  `
