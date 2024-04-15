@@ -1,3 +1,4 @@
+
 # EBPCP Admin
 
 ## Descripción
@@ -12,17 +13,16 @@ Asegúrate de tener instalado lo siguiente:
 ## Instalación
 1. Clona este repositorio en tu máquina local:
 
-   ```bash
+   ~~~bash
    git clone https://github.com/tu-usuario/mi-proyecto-increible.git
-
 
 2. Navega hasta la carpeta del proyecto:
 
-  ```bash
+  ~~~bash
    cd mi-proyecto-increible
-
+  ~~~
 
 3. Instala las dependencias utilizando Composer:
 
-  ```bash
+  ~~~bash
   composer install
