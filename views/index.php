@@ -1,11 +1,3 @@
-<?php  
-
-if (isset($_SESSION['usuario'])) {
-    header('Location: Principal');
-    die();
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +12,7 @@ if (isset($_SESSION['usuario'])) {
     <title>Iniciar Sesión</title>
 
     <!-- Custom fonts for this template-->
-    <link href="<?= BASE_URL ?>assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="<?= BASE_URL ?>assets/vendorManual/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
@@ -88,15 +80,15 @@ if (isset($_SESSION['usuario'])) {
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="<?= BASE_URL ?>assets/vendor/jquery/jquery.min.js"></script>
-    <script src="<?= BASE_URL ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= BASE_URL ?>assets/vendorManual/jquery/jquery.min.js"></script>
+    <script src="<?= BASE_URL ?>assets/vendorManual/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="<?= BASE_URL ?>assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="<?= BASE_URL ?>assets/vendorManual/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="<?= BASE_URL ?>assets/js/sb-admin-2.min.js"></script>
-    <script src="<?= BASE_URL ?>assets/vendor/swetalert2/sweetalert2@11.js"></script>
+    <script src="<?= BASE_URL ?>assets/vendorManual/swetalert2/sweetalert2@11.js"></script>
 
     <script>
         const base_url = "<?= BASE_URL ?>";

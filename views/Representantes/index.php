@@ -7,7 +7,7 @@
   <div class="card-header py-3">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">Representantes</h1>
-      <button id="btnNewRepre" class="btn btn-primary" type="button">Nuevo <i class="fas fa-plus"></i></button>
+      <button id="btnNewRepre" class="btn btn-primary" type="button">Nuevo Representante <i class="fas fa-plus"></i></button>
     </div>
   </div>
   <div class="card-body">
@@ -18,11 +18,10 @@
             <th>Id</th>
             <th>Cedula</th>
             <th>Nombre</th>
-            <th>Apellido</th>
             <th>Fecha Nacimiento</th>
-            <th>Dirección</th>
             <th>Telefono</th>
             <th>Relación</th>
+            <th>Dirección</th>
             <th>Acciones</th>
           </tr>
         </thead>

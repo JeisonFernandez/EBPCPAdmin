@@ -23,26 +23,143 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   // BOTONES OFFICE DATATABLE
-  const buttons = [
+  /* const buttons = [
     {
-      //Botón para Excel
+      // Botón para Excel
       extend: "excel",
       footer: true,
       title: "Archivo",
       filename: "Export_File",
-
-      //Aquí es donde generas el botón personalizado
-      text: '<button class="btn btn-success"><i class="fa fa-file-excel-o"></i></button>',
+      text: '<button class="btn btn-success"><i class="fas fa-file-excel"></i></button>',
     },
-    //Botón para PDF
+    // Botón para PDF
     {
-      extend: "pdf",
-      footer: true,
-      title: "Archivo PDF",
-      filename: "reporte",
-      text: '<button class="btn btn-danger"><i class="fa fa-file-pdf-o"></i></button>',
+      extend: "pdfHtml5",
+      title: "Reporte de Datos",
+      pageSize: "A4",
+      download: "open",
+      text: '<button class="btn btn-danger"><i class="fas fa-file-pdf"></i></button>',
+      exportOptions: {
+        search: "applied",
+        order: "applied",
+        stripNewlines: false,
+      },
+      customize: function (doc) {
+        var rdoc = doc;
+        var rcout = doc.content[doc.content.length - 1].table.body.length - 1;
+        doc.content.splice(0, 1);
+        var ahora = new Date();
+        var fechaActual =
+          ahora.getDate() +
+          "/" +
+          (ahora.getMonth() + 1) +
+          "/" +
+          ahora.getFullYear() +
+          "  y Hora:" +
+          ahora.getHours() +
+          ":" +
+          ahora.getMinutes() +
+          ":" +
+          ahora.getSeconds();
+        doc.pageMargins = [30, 70, 30, 30];
+        doc.defaultStyle.fontSize = 12;
+        doc.styles.tableHeader.fontSize = 12;
+        doc.content[doc.content.length - 1].table.headerRows = 2;
+        doc.content[doc.content.length - 1].table.body[0].splice(-1, 1); // Eliminar columna "Acciones"
+        var iPlus;
+        for (var i = 0; i < rcout; i++) {
+          iPlus = i + 1;
+          var obj = doc.content[doc.content.length - 1].table.body[i + 1];
+          doc.content[doc.content.length - 1].table.body[i + 1][2] = {
+            text: obj[2].text,
+            style: [obj[2].style],
+            alignment: "center",
+            bold: obj[2].text > 60 ? true : false,
+            fillColor: obj[2].text > 60 ? "red" : null,
+          };
+          doc.content[doc.content.length - 1].table.body[iPlus].splice(-1, 1); // Eliminar columna "Acciones"
+        }
+
+        doc["header"] = function (page, pages) {
+          return {
+            table: {
+              widths: ["100%"],
+              headerRows: 0,
+              body: [
+                [
+                  {
+                    text: "Título Principal de Ejemplo",
+                    alignment: "center",
+                    fontSize: 14,
+                    bold: true,
+                    margin: [0, 10, 0, 0],
+                  },
+                ],
+                [
+                  {
+                    text: [
+                      { text: "Subtítulo1: ", bold: true },
+                      "Detalles del subtítulo...1\n",
+                      { text: "Subtítulo2: ", bold: true },
+                      "Detalles del subtítulo...2",
+                    ],
+                  },
+                ],
+              ],
+            },
+            layout: "noBorders",
+            margin: 10,
+          };
+        };
+
+        doc["footer"] = function (page, pages) {
+          return {
+            columns: [
+              {
+                alignment: "left",
+                text: ["Fecha de Creación: ", { text: fechaActual.toString() }],
+              },
+              {
+                alignment: "center",
+                text: "Total de filas: " + rcout.toString(),
+              },
+              {
+                alignment: "right",
+                text: [
+                  "página ",
+                  { text: page.toString() },
+                  " de ",
+                  { text: pages.toString() },
+                ],
+              },
+            ],
+            margin: 10,
+          };
+        };
+
+        var objLayout = {};
+        objLayout["hLineWidth"] = function (i) {
+          return 0.8;
+        };
+        objLayout["vLineWidth"] = function (i) {
+          return 0.5;
+        };
+        objLayout["hLineColor"] = function (i) {
+          return "#aaa";
+        };
+        objLayout["vLineColor"] = function (i) {
+          return "#aaa";
+        };
+        objLayout["paddingLeft"] = function (i) {
+          return 5;
+        };
+        objLayout["paddingRight"] = function (i) {
+          return 35;
+        };
+        doc.content[doc.content.length - 1].layout = objLayout;
+      },
     },
-    //Botón para print
+    // Botón para imprimir
     {
       extend: "print",
       footer: true,
@@ -50,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
       filename: "Export_File_print",
       text: '<button class="btn btn-info"><i class="fa fa-print"></i></button>',
     },
-  ];
+  ]; */
 
   // CARGAR DATOS CON DATATABLE
   tblUsuarios = $("#tblUsuarios").DataTable({
@@ -69,6 +186,13 @@ document.addEventListener("DOMContentLoaded", function () {
     language: language,
     responsive: true,
     order: [[0, "desc"]],
+    bDestroy: true,
+    iDisplayLength: 10,
+    /* dom:
+      "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+      "<'row'<'col-sm-12'tr>>" +
+      "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+    buttons, */
   });
 
   // ABRIR MODAL REGISTRAR USUARIO
@@ -81,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
     frmUsuario.reset();
     manejarOpcionInactiva(false);
     bloquearEntrada(frmUsuario);
-    
+
     title.textContent = "Nuevo Usuario";
     $("#modalRegistro").modal("show");
   });
@@ -182,7 +306,9 @@ function editar(id) {
 // Función para manejar la opción "Rol Inactivo"
 function manejarOpcionInactiva(agregar) {
   // Buscar si la opción "Rol Inactivo" ya existe
-  var opcionInactiva = Array.from(frmUsuario.rol.options).find(option => option.text === "Rol Inactivo");
+  var opcionInactiva = Array.from(frmUsuario.rol.options).find(
+    (option) => option.text === "Rol Inactivo"
+  );
 
   if (agregar) {
     // Si se debe agregar y no existe, crear y agregar la opción

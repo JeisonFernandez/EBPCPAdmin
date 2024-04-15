@@ -1,0 +1,17 @@
+{
+    "name": "jhaydev/ebpcp-admin",
+    "autoload": {},
+    "authors": [
+        {
+            "name": "JeisonFernandez",
+            "email": "fernandezjeison86@gmail.com"
+        }
+    ],
+    "require": {
+        "dompdf/dompdf": "^2.0"
+    },
+    "config": {
+        "vendor-dir": "assets/vendor"
+    }
+    
+}

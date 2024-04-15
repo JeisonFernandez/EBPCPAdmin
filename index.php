@@ -1,4 +1,6 @@
 <?php
+  require_once 'assets/vendor/autoload.php';
+
   require_once "config/Config.php";
 
   $ruta = empty($_GET['url']) ? 'Home/index' : $_GET['url'];
@@ -35,8 +37,8 @@
     if (method_exists($controller, $metodo)) {
       $controller->$metodo($parametro);
     }else{
-      echo "El metodo no existe";
+      require_once "views/Pagenotfound/index.php";
     }
   }else {
-    echo "El controlador no existe";
+    require_once "views/Pagenotfound/index.php";
   }

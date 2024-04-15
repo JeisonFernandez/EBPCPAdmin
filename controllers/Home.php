@@ -6,6 +6,10 @@ class Home extends Controller
   public function __construct()
   {
     session_start();
+    if (isset($_SESSION['usuario'])) {
+      header('Location: Principal');
+      die();
+  }
     parent::__construct();
   }
 
@@ -35,13 +39,6 @@ class Home extends Controller
     }
 
     echo json_encode($res, JSON_UNESCAPED_UNICODE);
-    die();
-  }
-
-  public function salir()
-  {
-    session_destroy();
-    header('Location: ' . BASE_URL);
     die();
   }
 }

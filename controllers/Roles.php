@@ -5,6 +5,10 @@ class Roles extends Controller
   public function __construct()
   {
     session_start();
+    if (!isset($_SESSION["usuario"])) {
+      header('Location: ' . BASE_URL);
+      die();
+    }
     parent::__construct();
   }
 

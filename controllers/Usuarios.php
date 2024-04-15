@@ -1,4 +1,6 @@
 <?php
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class Usuarios extends Controller
 {
@@ -7,7 +9,7 @@ class Usuarios extends Controller
   {
     session_start();
     if (!isset($_SESSION['usuario'])) {
-      header('Location: ' .  BASE_URL);
+      header('Location: ' . BASE_URL);
       die();
     }
     parent::__construct();
@@ -146,5 +148,76 @@ class Usuarios extends Controller
 
     echo json_encode($res, JSON_UNESCAPED_UNICODE);
     die();
+  }
+
+  public function salir()
+  {
+    session_destroy();
+    header('Location: ' . BASE_URL);
+    die();
+  }
+
+  public function generarPdf()
+  {
+    // Crea una instancia de Dompdf
+    $options = new Options();
+    $options->set('isHtml5ParserEnabled', true);
+    $dompdf = new Dompdf($options);
+
+    // Carga el contenido HTML (puedes usar una vista o generar HTML manualmente)
+    $html = '
+    <html>
+    <head>
+        <style>
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th, td {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: left;
+            }
+
+            .titulo {
+              text-align: center;
+            }
+
+            .t-head {
+              background-color: #4e73df;
+              color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 class="titulo">Reporte de Usuarios</h1>
+        <table>
+            <tr class="t-head">
+                <th>Id</th>
+                <th>Usuario</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Estado</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Juan</td>
+                <td>juan@example.com</td>
+                <td>Admin</td>
+                <td>Activo</td>
+            </tr>
+            <!-- Agrega más filas según tus datos -->
+        </table>
+    </body>
+    </html>
+    ';
+
+    $dompdf->loadHtml($html);
+
+    // Renderiza el PDF
+    $dompdf->render();
+
+    // Muestra el PDF en una nueva página
+    $dompdf->stream('mi-archivo.pdf', ['Attachment' => false]);
   }
 }

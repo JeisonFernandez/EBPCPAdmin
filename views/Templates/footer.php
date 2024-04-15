@@ -38,37 +38,39 @@
       <div class="modal-body">Selecciona "Cerrar Sesión" si quieres salir de tu cuenta.</div>
       <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-        <a class="btn btn-primary" href="<?= 'Home/salir'?>">Cerrar Sesión</a>
+        <a class="btn btn-primary" href="<?= 'Usuarios/salir'?>">Cerrar Sesión</a>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="<?= BASE_URL ?>assets/vendor/jquery/jquery.min.js"></script>
-<script src="<?= BASE_URL ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?= BASE_URL ?>assets/vendorManual/jquery/jquery.min.js"></script>
+<script src="<?= BASE_URL ?>assets/vendorManual/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="<?= BASE_URL ?>assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="<?= BASE_URL ?>assets/vendorManual/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages-->
 <script src="<?= BASE_URL ?>assets/js/sb-admin-2.min.js"></script>
 
 <!-- Page level plugins -->
-<script src="<?= BASE_URL ?>assets/vendor/datatables/datatables.min.js"></script>
-<!-- <script src="<?= BASE_URL ?>assets/vendor/datatables/dataTables.bootstrap4.min.js"></script> -->
+<script src="<?= BASE_URL ?>assets/vendorManual/datatables/datatables.min.js"></script>
+<!-- <script src="<?= BASE_URL ?>assets/vendorManual/datatables/dataTables.bootstrap4.min.js"></script> -->
 
 <!-- Page level custom scripts -->
 <!-- <script src="<?= BASE_URL ?>assets/js/demo/datatables-demo.js"></script> -->
 
 <!-- Page level plugins -->
-<!-- <script src="<?= BASE_URL ?>assets/vendor/chart.js/Chart.min.js"></script> -->
+<!-- <script src="<?= BASE_URL ?>assets/vendorManual/chart.js/Chart.min.js"></script> -->
 
 <!-- Page level custom scripts -->
 <!-- <script src="<?= BASE_URL ?>assets/js/demo/chart-area-demo.js"></script>
 <script src="<?= BASE_URL ?>assets/js/demo/chart-pie-demo.js"></script> -->
 
-<script src="<?= BASE_URL ?>assets/vendor/swetalert2/sweetalert2@11.js"></script>
+<script src="<?= BASE_URL ?>assets/vendorManual/swetalert2/sweetalert2@11.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.html5.min.js" type="text/javascript"></script>
 
 <script>
   const base_url = "<?= BASE_URL ?>";
