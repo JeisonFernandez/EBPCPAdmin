@@ -14,16 +14,15 @@ Asegúrate de tener instalado lo siguiente:
 
    ```bash
    git clone https://github.com/tu-usuario/mi-proyecto-increible.git
-  ```
+
 
 2. Navega hasta la carpeta del proyecto:
 
   ```bash
    cd mi-proyecto-increible
-  ```
+
 
 3. Instala las dependencias utilizando Composer:
 
   ```bash
   composer install
-  ```
