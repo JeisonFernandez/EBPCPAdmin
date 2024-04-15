@@ -159,6 +159,8 @@ class Usuarios extends Controller
 
   public function generarPdf()
   {
+
+    // CARGAR DATOS DE LA BD A DOMPDF
     $data = $this->model->getUsuarios();
     for ($i=0; $i < count($data); $i++) { 
       if ($data[$i]['estado'] == 1) {
@@ -188,18 +190,21 @@ class Usuarios extends Controller
     $dompdf = new Dompdf($options);
 
 
+
+    // PONER IMAGENES EN DOMPDF
     $rutaImagenLocal = 'assets/img/ing.jpg'; // Cambia esto a la ruta de tu imagen local
     // Lee el contenido de la imagen
     $contenidoImagen = file_get_contents($rutaImagenLocal);
     // Codifica la imagen en Base64
     $imagenBase64 = base64_encode($contenidoImagen);
-
     $base64 = "data:image/jpeg;base64,$imagenBase64";
+
 
     // Carga el contenido HTML (puedes usar una vista o generar HTML manualmente)
     $html = '
     <html>
     <head>
+        <title>Reporte de Usuario</title>
         <style>
             table {
                 width: 100%;
@@ -259,6 +264,6 @@ class Usuarios extends Controller
     $dompdf->render();
 
     // Muestra el PDF en una nueva página
-    $dompdf->stream('mi-archivo.pdf', ['Attachment' => false]);
+    $dompdf->stream('reporte-usuarios.pdf', ['Attachment' => false]);
   }
 }

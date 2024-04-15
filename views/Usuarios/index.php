@@ -5,8 +5,8 @@
 
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">Usuarios</h1>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4 resposive-ch">
+      <h1 class="h2 mb-0 text-gray-800">Usuarios</h1>
       <div class="">
         <a href="Usuarios/generarPdf" target="_blank" class="btn btn-danger" type="button"><i class="fas fa-file-pdf"></i></a>
         <a href="" class="btn btn-success" type="button"><i class="fas fa-file-excel"></i></a>

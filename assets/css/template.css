@@ -1,0 +1,22 @@
+@media (max-width: 576px){
+  .resposive-ch{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+}
+
+
+.card-header {
+  padding-bottom: 0 !important;
+}
+
+.sidebar.toggled .sidebar-card p{
+  font-size: .60rem;
+}
+
+.sidebar.toggled .sidebar-card .btn-sm{
+  font-size: 0.40rem;
+}
+

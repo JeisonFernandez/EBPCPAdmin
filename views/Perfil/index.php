@@ -5,7 +5,7 @@
 
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4 resposive-ch">
       <h1 class="h1 mb-0 text-gray-800">Perfil</h1>
     </div>
   </div>

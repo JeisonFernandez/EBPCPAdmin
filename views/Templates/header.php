@@ -11,6 +11,8 @@
 
     <title>Jhaydev - Dashboard</title>
 
+    <link rel="icon" type="image/x-icon" href="<?= BASE_URL ?>assets/img/favicon.ico">
+
     <!-- Custom fonts for this template-->
     <link href="<?= BASE_URL ?>assets/vendorManual/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -20,7 +22,7 @@
     <!-- Custom styles for this template-->
     <link href="<?= BASE_URL ?>assets/css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendorManual/datatables/datatables.min.css">
-
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/template.css">
 </head>
 
 <body id="page-top">
@@ -52,6 +54,11 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Opciones
+            </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -111,6 +118,13 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
+
+            <div class="sidebar-card d-none d-lg-flex">
+                <img class="sidebar-card-illustration mb-2" src="<?= BASE_URL ?>assets/img/undraw_rocket.svg" alt="...">
+                <p class="text-center mb-2"><strong>EBPCP Admin</strong> Documentación como usar la herramienta EBPCP Admin.</p>
+                <a class="btn btn-success btn-sm" href="#">Documentación</a>
+            </div>
+
 
         </ul>
         <!-- End of Sidebar -->
