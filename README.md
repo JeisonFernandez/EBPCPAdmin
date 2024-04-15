@@ -20,8 +20,10 @@ Asegúrate de tener instalado lo siguiente:
 
   ```bash
    cd mi-proyecto-increible
+  ```
 
 3. Instala las dependencias utilizando Composer:
 
   ```bash
   composer install
+  ```
