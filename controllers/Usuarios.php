@@ -159,10 +159,42 @@ class Usuarios extends Controller
 
   public function generarPdf()
   {
+    $data = $this->model->getUsuarios();
+    for ($i=0; $i < count($data); $i++) { 
+      if ($data[$i]['estado'] == 1) {
+        $data[$i]['estado'] = 'Activo';
+      }else {
+        $data[$i]['estado'] = 'Inactivo';
+      }
+    }
+
+    $rows = '';
+    foreach($data as $datos){
+      $rows .= '
+        <tr>
+          <td>' . $datos['id'] . '</td>
+          <td>' . $datos['usuario'] . '</td>
+          <td>' . $datos['correo'] . '</td>
+          <td>' . $datos['rol'] . '</td>
+          <td>' . $datos['estado'] . '</td>
+        </tr>
+      ';
+    }
+
     // Crea una instancia de Dompdf
     $options = new Options();
     $options->set('isHtml5ParserEnabled', true);
+    $options->set('isPhpEnabled', true);
     $dompdf = new Dompdf($options);
+
+
+    $rutaImagenLocal = 'assets/img/ing.jpg'; // Cambia esto a la ruta de tu imagen local
+    // Lee el contenido de la imagen
+    $contenidoImagen = file_get_contents($rutaImagenLocal);
+    // Codifica la imagen en Base64
+    $imagenBase64 = base64_encode($contenidoImagen);
+
+    $base64 = "data:image/jpeg;base64,$imagenBase64";
 
     // Carga el contenido HTML (puedes usar una vista o generar HTML manualmente)
     $html = '
@@ -179,7 +211,20 @@ class Usuarios extends Controller
                 text-align: left;
             }
 
+            .logo {
+              width: 100px;
+              heigth: 100px;
+            }
+
             .titulo {
+              display: inline;
+              margin-left: 110px;
+              position: absolute;
+              top: 0;
+            }
+
+            .subTitulo {
+              /* display: inline; */
               text-align: center;
             }
 
@@ -190,7 +235,10 @@ class Usuarios extends Controller
         </style>
     </head>
     <body>
+        <img class="logo" src="'.$base64.'" alt="Insignia EBPCP">
         <h1 class="titulo">Reporte de Usuarios</h1>
+        <!-- <h2 class="subTitulo">Reporte clasicon</h2> -->
+
         <table>
             <tr class="t-head">
                 <th>Id</th>
@@ -199,14 +247,7 @@ class Usuarios extends Controller
                 <th>Rol</th>
                 <th>Estado</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>Juan</td>
-                <td>juan@example.com</td>
-                <td>Admin</td>
-                <td>Activo</td>
-            </tr>
-            <!-- Agrega más filas según tus datos -->
+            '.$rows.'
         </table>
     </body>
     </html>

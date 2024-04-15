@@ -85,7 +85,7 @@ function bloquearEntrada(inputElement) {
     const inputValue = event.target.value;
     // Validación: No permitir <, >, script, SELECT, DELETE, UPDATE, INSERT, DROP, ALTER, ni caracteres especiales
     if (event.target.type !== "date") {
-      if (event.target.id === "direccion" || event.target.type === "password") {
+      if (event.target.id === "direccion" || event.target.type === "password" || event.target.type === "email") {
         const cleanValue = inputValue.replace(/[<>&=]|script|SELECT|DELETE|UPDATE|INSERT|DROP|ALTER|/gi, "");
         event.target.value = cleanValue;
       }else{
