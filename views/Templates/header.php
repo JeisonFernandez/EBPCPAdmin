@@ -87,7 +87,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Datos:</h6>
-                        <a class="collapse-item" href="Usuarios"><i class="fas fa-graduation-cap"></i> Grados</a>
+                        <a class="collapse-item" href="Grados"><i class="fas fa-graduation-cap"></i> Grados</a>
                         <a class="collapse-item" href="Roles"><i class="fas fa-chalkboard-teacher"></i> Profesores</a>
                     </div>
                 </div>
