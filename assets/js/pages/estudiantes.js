@@ -32,8 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     columns: [
       { data: "id" },
-      { data: "nombre_alumno" },
-      { data: "apellido_alumno" },
+      { data: "nombre_completo" },
+      //{ data: "apellido_alumno" },
       { data: "nombre_grado" },
       { data: "fecha_nacimiento_alumno" },
       { data: "direccion_alumno" },
@@ -54,13 +54,31 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
 
     frmEstudiante.reset();
+    bloquearEntrada(frmEstudiante);
 
     titleEstudiante.textContent = "Nuevo Estudiante";
     $("#modalRegistroEstudiante").modal("show");
   });
 
+
   frmEstudiante.addEventListener("submit", function (e) {
     e.preventDefault();
+    bloquearEntrada(frmEstudiante);
+
+    if (
+      frmEstudiante.nombre_alumno.value == "" ||
+      frmEstudiante.apellido_alumno.value == "" ||
+      frmEstudiante.fecha_nacimiento.value == "" ||
+      frmEstudiante.direccion.value == "" ||
+      frmEstudiante.talla.value == "" ||
+      frmEstudiante.peso.value == "" ||
+      frmEstudiante.altura.value == "" ||
+      frmEstudiante.estado.value == "" ||
+      frmEstudiante.representante.value == "" ||
+      frmEstudiante.grado.value == "" 
+    ){
+      alertaPersonalizada("warning", "Todos los campos son obligatorios");
+    }else{
 
     const data = new FormData(frmEstudiante);
     const http = new XMLHttpRequest();
@@ -80,6 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
     };
+  } 
   });
 });
 
@@ -98,10 +117,20 @@ $(document).ready(function(){
         data: {query:query},
         dataType: 'json',
         success: function(data){
+          console.log(data);
           $('#representanteLista').empty();
           $.each(data, function(key, value){
-            $('#representanteLista').append('<p class="representante-item">' + value.id + ' ' + value.nombre + ' ' + value.apellido + '</p>');
+            var representanteItem = $('<p>')
+              .addClass('representante-item')
+              .append('<span class="id">' + value.id + '</span> ' + value.nombre + ' ' + value.apellido + ' C.I:' + value.cedula)
+              .hover(function() {
+                $(this).css('background-color', '#e2e8f0');  
+              }, function() {
+                $(this).css('background-color', 'transparent'); 
+              });
+            $('#representanteLista').append(representanteItem);
           });
+          $('.id').css('color', 'white'); 
         }
       });
     }
@@ -113,6 +142,8 @@ $(document).ready(function(){
     $('#representanteLista').empty();
   });
 });
+
+
 
 
 function eliminar(id) {
@@ -162,6 +193,12 @@ function editar(id) {
 
       titleEstudiante.textContent = "Editar Estudiante";
       $("#modalRegistroEstudiante").modal("show");
+      $('#representante').prop('readonly', true);
+      
+      
+      $('#modalRegistroEstudiante').on('hidden.bs.modal', function () {
+        $('#representante').prop('readonly', false);
+      });
     }
   };
 }

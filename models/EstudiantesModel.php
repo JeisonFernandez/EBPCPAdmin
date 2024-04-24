@@ -25,8 +25,7 @@ class EstudiantesModel extends Query
     ) AS representante_info, 
     grados.descripcion AS nombre_grado, 
     grados.descripcion AS descripcion_grado, 
-    datos_alumnos.nombre AS nombre_alumno, 
-    datos_alumnos.apellido AS apellido_alumno, 
+    CONCAT(datos_alumnos.nombre, ' ', datos_alumnos.apellido) AS nombre_completo, 
     datos_alumnos.fecha_nac AS fecha_nacimiento_alumno, 
     datos_alumnos.direccion AS direccion_alumno 
 FROM 
@@ -38,7 +37,7 @@ JOIN
 JOIN 
     grados ON alumnos.id_grado = grados.id 
 JOIN 
-    datos_personales AS datos_alumnos ON alumnos.id_datosA = datos_alumnos.id";
+    datos_personales AS datos_alumnos ON alumnos.id_datosA = datos_alumnos.id ";
     $data = $this->selectAll($sql);
     return $data;
   }
@@ -67,7 +66,7 @@ JOIN
       $sql = "SELECT representantes.id, representantes.cedula, representantes.telefono, representantes.relacion, datos_personales.nombre, datos_personales.apellido
               FROM representantes
               INNER JOIN datos_personales ON representantes.id_datosR = datos_personales.id
-              WHERE datos_personales.nombre LIKE '%$query%' OR datos_personales.apellido LIKE '%$query%'";
+              WHERE datos_personales.nombre LIKE '%$query%' OR datos_personales.apellido LIKE '%$query%' OR representantes.cedula LIKE '%$query%'";
       return $this->selectAll($sql);
   }
 
