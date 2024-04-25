@@ -15,6 +15,7 @@ class Principal extends Controller
 
   public function index()
   {
+    $data['title'] = 'Principal';
     $data['usuario'] = $_SESSION['usuario'];
     $this->views->getView($this, "index", $data);
   }

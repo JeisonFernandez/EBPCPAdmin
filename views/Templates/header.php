@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Jhaydev - Dashboard</title>
+    <title><?= NAME_TITLE . ' | ' . $data['title'] ?></title>
 
     <link rel="icon" type="image/x-icon" href="<?= BASE_URL ?>assets/img/favicon.ico">
 

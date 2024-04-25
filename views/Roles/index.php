@@ -1,19 +1,29 @@
 <?php include 'views/Templates/header.php' ?>
 
 <!-- Page Heading -->
-
+<div class="d-flex navegacion card shadow border-bottom-primary mb-2">
+  <a class="disabled active" href="Principal">Home</a>
+  <a class="desabilitar">/</a>
+  <a class="desabilitar">Roles</a>
+  <a class="desabilitar">/</a>
+</div>
 
 <div class="card shadow mb-4">
   <div class="card-header py-3">
     <div class="d-sm-flex align-items-center justify-content-between mb-4 resposive-ch">
       <h1 class="h2 mb-0 text-gray-800">Roles</h1>
+      <div class="">
+        <a href="Roles/generarPdf" target="_blank" class="btn btn-danger" type="button"><i
+            class="fas fa-file-pdf"></i></a>
+        <!-- <a href="" class="btn btn-success" type="button"><i class="fas fa-file-excel"></i></a> -->
+      </div>
       <button id="btnNewRol" class="btn btn-primary" type="button">Nuevo Rol <i class="fas fa-plus"></i></button>
     </div>
   </div>
   <div class="card-body">
     <div class="">
       <table class="table table-hover display nowrap" id="tblRoles" style="width:100%;">
-        <thead class="text-white" style="background-color: #4e73df;">
+        <thead class="text-white bg-gradient-primary">
           <tr>
             <th>Id</th>
             <th>Rol</th>
