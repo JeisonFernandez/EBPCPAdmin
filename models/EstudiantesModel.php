@@ -37,7 +37,7 @@ JOIN
 JOIN 
     grados ON alumnos.id_grado = grados.id 
 JOIN 
-    datos_personales AS datos_alumnos ON alumnos.id_datosA = datos_alumnos.id ";
+    datos_personales AS datos_alumnos ON alumnos.id_datosA = datos_alumnos.id WHERE estado='cursando'";
     $data = $this->selectAll($sql);
     return $data;
   }
@@ -159,5 +159,12 @@ JOIN
     $sql = "UPDATE alumnos SET talla = ?, peso = ?, altura = ?, estado = ?, id_representante = ?, id_grado = ? WHERE id = ?";
     $datos = array($talla, $peso, $altura, $estado, $idRepresentante, $idGrado, $id);
     return $this->save($sql, $datos);
+  }
+
+  public function agregarHistorico($idAlumno, $fechaInicio, $estadoAnterior, $estadoNuevo)
+  {
+      $sql = "INSERT INTO historico_alumnos (id_alumno, fecha_inicio, fecha_fin, estado_anterior, estado_nuevo) VALUES (?, ?, NULL, ?, ?)";
+      $datos = array($idAlumno, $fechaInicio, $estadoAnterior, $estadoNuevo);
+      return $this->insertar($sql, $datos);
   }
 }

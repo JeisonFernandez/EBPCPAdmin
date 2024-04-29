@@ -69,7 +69,9 @@ public function guardar()
     $idd= $_POST["id_datos"];
    
     $idEstudiante = isset($_POST['id_estudiante']) ? $_POST['id_estudiante'] : null;
-    
+    $fechaInicio = date('Y-m-d H:i:s');
+    $estadoAnterior = ''; 
+    $estadoNuevo = $estado;
    
     if (empty($nombre) || empty($apellido) || empty($fechaNacimiento) || empty($direccion) || empty($talla) || empty($peso) || empty($altura) || empty($estado) || empty($idRepresentante) || empty($idGrado)) {
       $res = array('tipo' => 'warning', 'mensaje' => 'Todos los campos son requeridos');
@@ -91,6 +93,8 @@ public function guardar()
         $idDatosA = $this->model->registrarDatosPersonales($nombre, $apellido, $fechaNacimiento, $direccion);
         if ($idDatosA > 0) {
           $data = $this->model->registrarEstudiante($talla, $peso, $altura, $estado, $idRepresentante, $idGrado, $idDatosA);
+          $idAlumno = $data; 
+          $this->model->agregarHistorico($idAlumno, $fechaInicio, $estadoAnterior, $estadoNuevo);
           if ($data > 0) {
             $res = array('tipo' => 'success', 'mensaje' => 'Estudiante registrado con éxito');
           } else {

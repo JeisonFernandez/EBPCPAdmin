@@ -72,7 +72,7 @@
                         <h6 class="collapse-header">Datos:</h6>
                         <a class="collapse-item" href="Estudiantes"><i class="fas fa-user-graduate"></i> Alumnos</a>
                         <a class="collapse-item" href="Representantes"><i class="fas fa-users"></i> Representantes</a>
-                        <a class="collapse-item" href="Roles"><i class="fas fa-history"></i> Historico</a>
+                        <a class="collapse-item" href="Historico"><i class="fas fa-history"></i> Historico</a>
                     </div>
                 </div>
             </li>
