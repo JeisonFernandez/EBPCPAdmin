@@ -14,6 +14,7 @@ class Perfil extends Controller
 
   public function index()
   {
+    $data['title'] = 'Perfil';
     $data['usuario'] = $_SESSION['usuario'];
     $data['id_usuario'] = $_SESSION['id_usuario'];
     $data['script'] = 'perfil.js';

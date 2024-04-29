@@ -1,4 +1,6 @@
 <?php
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class Estudiantes extends Controller
 {
@@ -15,6 +17,7 @@ class Estudiantes extends Controller
 
   public function index()
   {
+    $data['title'] = 'Estudiantes';
     $data['usuario'] = $_SESSION['usuario'];
     $data['grados'] = $this->model->getGrados();
     $data['representantes'] = $this->model->getRepresentantes();
@@ -135,5 +138,120 @@ public function guardar()
     die();
   }
 
+  public function generarPdf()
+  {
+
+    // CARGAR DATOS DE LA BD A DOMPDF
+    $data = $this->model->getEstudiantes();
+
+    $rows = '';
+    foreach($data as $datos){
+      $rows .= '
+        <tr>
+          <td>' . $datos['id'] . '</td>
+          <td>' . $datos['nombre_completo'] . '</td>
+          <td>' . $datos['nombre_grado'] . '</td>
+          <td>' . $datos['fecha_nacimiento_alumno'] . '</td>
+          <td>' . $datos['direccion_alumno'] . '</td>
+          <td>' . $datos['talla'] . '</td>
+          <td>' . $datos['peso'] . '</td>
+          <td>' . $datos['altura'] . '</td>
+          <td>' . $datos['estado'] . '</td>
+        </tr>
+      ';
+    }
+
+    // Crea una instancia de Dompdf recordar usar el Use al principio
+    $options = new Options();
+    $options->set('isHtml5ParserEnabled', true);
+    $options->set('isPhpEnabled', true);
+    $dompdf = new Dompdf($options);
+
+
+
+    // PONER IMAGENES EN DOMPDF
+    $rutaImagenLocal = 'assets/img/ing.jpg'; // Cambia esto a la ruta de tu imagen local
+    // Lee el contenido de la imagen
+    $contenidoImagen = file_get_contents($rutaImagenLocal);
+    // Codifica la imagen en Base64
+    $imagenBase64 = base64_encode($contenidoImagen);
+    $base64 = "data:image/jpeg;base64,$imagenBase64";
+
+
+    // Carga el contenido HTML (puedes usar una vista o generar HTML manualmente)
+    $html = '
+    <html>
+    <head>
+        <title>Reporte de Estudiantes</title>
+        <style>
+            body {
+              font-family: sans-serif;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            th, td {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: left;
+            }
+
+            .logo {
+              width: 100px;
+              heigth: 100px;
+            }
+
+            .titulo {
+              display: inline;
+              margin-left: 110px;
+              position: absolute;
+              top: 0;
+            }
+
+            .subTitulo {
+              /* display: inline; */
+              text-align: center;
+            }
+
+            .t-head {
+              background-color: #4e73df;
+              color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <img class="logo" src="'.$base64.'" alt="Insignia EBPCP">
+        <h1 class="titulo">Reporte de Estudiantes</h1>
+        <!-- <h2 class="subTitulo">Reporte clasicon</h2> -->
+
+        <table>
+            <tr class="t-head">
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Grado</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Dirección</th>
+                <th>Talla</th>
+                <th>Peso</th>
+                <th>Altura</th>
+                <th>Estado</th>
+            </tr>
+            '.$rows.'
+        </table>
+    </body>
+    </html>
+    ';
+
+    $dompdf->loadHtml($html);
+
+    // Renderiza el PDF
+    $dompdf->render();
+
+    // Muestra el PDF en una nueva página
+    $dompdf->stream('reporte-estudiantes.pdf', ['Attachment' => false]);
+  }
   
 }

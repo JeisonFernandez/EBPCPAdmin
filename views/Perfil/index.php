@@ -6,12 +6,12 @@
 <div class="card shadow mb-4">
   <div class="card-header py-3">
     <div class="d-sm-flex align-items-center justify-content-between mb-4 resposive-ch">
-      <h1 class="h1 mb-0 text-gray-800">Perfil</h1>
+      <h1 class="h1 mb-0 text-gray-800" style="font-weight: bold;">Perfil</h1>
     </div>
   </div>
   <div class="card-body">
     <div class="d-flex justify-content-center align-items-center flex-column">
-      <h2 class="h2 mb-0 text-gray-800">Cambiar contraseña</h2>
+      <h2 class="h2 mb-0 text-gray-800 changePass">Cambiar contraseña</h2>
       <form id="formulario" autocomplete="off">
 
         <div class="modal-body mb-2">

@@ -70,7 +70,6 @@
 
 <script src="<?= BASE_URL ?>assets/vendorManual/swetalert2/sweetalert2@11.js"></script>
 
-<script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.html5.min.js" type="text/javascript"></script>
 
 <script>
   const base_url = "<?= BASE_URL ?>";

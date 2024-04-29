@@ -17,6 +17,7 @@ class Usuarios extends Controller
 
   public function index()
   {
+    $data['title'] = 'Usuarios';
     $data['usuario'] = $_SESSION['usuario'];
     $data['roles'] = $this->model->getRoles();
     $data['script'] = 'usuarios.js';
@@ -206,10 +207,15 @@ class Usuarios extends Controller
     <head>
         <title>Reporte de Usuario</title>
         <style>
+            body {
+              font-family: sans-serif;
+            }
+
             table {
                 width: 100%;
                 border-collapse: collapse;
             }
+
             th, td {
                 border: 1px solid #000;
                 padding: 8px;

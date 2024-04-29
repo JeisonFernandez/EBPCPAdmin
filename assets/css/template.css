@@ -1,22 +1,59 @@
-@media (max-width: 576px){
-  .resposive-ch{
+@media (max-width: 576px) {
+  .resposive-ch {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
 
+  .navegacion {
+    justify-content: center !important;
+  }
+
+  /* .changePass {
+    font-size: 1rem;
+    font-weight: bold;
+  } */
 }
 
+.h2 {
+  font-weight: bold !important;
+}
 
 .card-header {
   padding-bottom: 0 !important;
 }
 
-.sidebar.toggled .sidebar-card p{
-  font-size: .60rem;
+.sidebar.toggled .sidebar-card p {
+  font-size: 0.6rem;
 }
 
-.sidebar.toggled .sidebar-card .btn-sm{
-  font-size: 0.40rem;
+.sidebar.toggled .sidebar-card .btn-sm {
+  font-size: 0.4rem;
 }
 
+.navegacion {
+  background-color: #fff;
+  /*  border: 1px solid gray; */
+  padding: 10px;
+  flex-direction: row !important;
+}
+
+.navegacion a {
+  text-decoration: none;
+}
+
+.navegacion > .desabilitar {
+  text-decoration: none;
+  font-style: normal;
+  color: rgba(128, 128, 128, 0.6);
+}
+
+.descripcion {
+  text-wrap: wrap;
+  width: 100%;
+  text-align: center;
+}
+
+.btn {
+  font-weight: bold !important;
+}
