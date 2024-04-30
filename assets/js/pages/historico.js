@@ -102,11 +102,12 @@ let tblHistorico;
         const res = JSON.parse(this.responseText);
         
         frmHistorico.id.value = res.id;
-        frmHistorico.id_alumno.value = res.nombre_completo;
+        frmHistorico.id_alumno.value = res.id_alumno;
+        frmHistorico.alumno.value = res.nombre_completo;
         frmHistorico.fecha_inicio.value = res.fecha_inicio;
         frmHistorico.fecha_fin.value = res.fecha_fin;
-        /* frmHistorico.estado_anterior.value = res.estado_anterior;
-        frmHistorico.estado_nuevo.value = res.estado_nuevo;  */
+        frmHistorico.estado_anterior.value = res.estado_anterior;
+        frmHistorico.estado_nuevo.value = res.estado_nuevo;  
         }
   
         titleHistorico.textContent = "Editar Historico";

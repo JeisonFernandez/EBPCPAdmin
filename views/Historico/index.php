@@ -45,10 +45,13 @@
     <input type="hidden" id="id" name="id">
 
     <div class="modal-body mb-2">
+        <div class="input-group mb-2">
+            <input class="form-control" type="hidden" id="id_alumno" name="id_alumno" placeholder="Estudiante" >
+        </div>
 
         <label for="id_alumno">Estudiante</label>
         <div class="input-group mb-2">
-            <input class="form-control" type="text" id="id_alumno" name="id_alumno" placeholder="Estudiante" disabled>
+            <input class="form-control" type="text" id="alumno" name="alumno" placeholder="Estudiante" disabled>
             <span class="input-group-text"><i class="fas fa-graduation-cap"></i></span>
         </div>
 
@@ -64,7 +67,7 @@
             <span class="input-group-text"><i class="fas fa-calendar"></i></span>
         </div>
 
-         <!-- <label for="estado_anterior">Estado</label>
+         <label for="estado_anterior">Estado Anterior</label>
           <div class="input-group">
             <select id="estado_anterior" class="form-control" name="estado_anterior" >
               <option value="cursando">Cursando</option>
@@ -73,14 +76,14 @@
             <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
           </div>
 
-          <label for="estado_nuevo">Estado</label>
+          <label for="estado_nuevo">Estado Nuevo</label>
           <div class="input-group">
             <select id="estado_nuevo" class="form-control" name="estado_nuevo" >
               <option value="cursando">Cursando</option>
               <option value="no_cursando">No cursando</option>
             </select>
             <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
-          </div>  -->
+          </div> 
     
     </div>
 

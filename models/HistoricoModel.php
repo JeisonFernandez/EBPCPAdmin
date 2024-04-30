@@ -52,14 +52,19 @@ INNER JOIN datos_personales dp ON a.id_datosA = dp.id WHERE ha.id =$id";
   }
 
 
- public function modificarHistorico($fechaInicio, $fechaFin, $id)
+ public function modificarHistorico($id_alumno,$fechaInicio, $fechaFin,$estado_anterior,$estado_nuevo, $id)
   {
    
-    $sql = "UPDATE historico_alumnos SET  fecha_inicio = ?, fecha_fin = ? WHERE id = ?";
-    $datos = array( $fechaInicio, $fechaFin, $id); 
+    $sql = "UPDATE historico_alumnos SET id_alumno=?, fecha_inicio = ?, fecha_fin = ?, estado_anterior=?, estado_nuevo=? WHERE id = ?";
+    $datos = array( $id_alumno,$fechaInicio, $fechaFin,$estado_anterior,$estado_nuevo, $id); 
     return $this->save($sql, $datos);
 
   }
 
-
+  public function modificarEstudiante( $estado, $id)
+  {
+    $sql = "UPDATE alumnos SET estado = ? WHERE id = ?";
+    $datos = array( $estado, $id);
+    return $this->save($sql, $datos);
+  }
 }

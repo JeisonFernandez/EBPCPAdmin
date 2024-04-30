@@ -38,34 +38,37 @@ class Historico extends Controller
 
 
   
-public function guardar()
-{
-  
-  if(isset( $_POST['fecha_inicio'],$_POST['fecha_fin'] )) {
+  public function guardar()
+  {
+      if(isset($_POST['id_alumno'],$_POST['fecha_inicio'],$_POST['fecha_fin'],$_POST['estado_anterior'],$_POST['estado_nuevo'])) {
+          $fecha_inicio = $_POST['fecha_inicio'];
+          $fecha_fin = $_POST['fecha_fin'];
+          $estado_anterior= $_POST["estado_anterior"];
+          $estado_nuevo= $_POST["estado_nuevo"];
+          $id = isset($_POST['id']) ? $_POST['id'] : null;
+          $id_alumno =   $_POST['id_alumno'];
+          
+          if ($id) {
+              $data = $this->model->modificarHistorico($id_alumno,$fecha_inicio, $fecha_fin,$estado_anterior,$estado_nuevo, $id);
+              if ($data > 0) {
+                  $data = $this->model->modificarEstudiante($estado_nuevo,$id_alumno);
+                  if ($data > 0) {
+                      $res = array('tipo' => 'success', 'mensaje' => 'El Historico se actualizo con éxito');
+                  } else {
+                      $res = array('tipo' => 'error', 'mensaje' => 'Error al actualizar el estado del estudiante');
+                  }
+              } else {
+                  $res = array('tipo' => 'error', 'mensaje' => 'Error al actualizar el Historico');
+              }
+          } 
+      } else {
+          $res = array('tipo' => 'error', 'mensaje' => 'No se recibieron todos los datos del formulario');
+      }
     
-    
-    $fecha_inicio = $_POST['fecha_inicio'];
-    $fecha_fin = $_POST['fecha_fin'];
-    
-   
-    $id = isset($_POST['id']) ? $_POST['id'] : null;
-    
-      if ($id) {
-         $data=$this->model->modificarHistorico($fecha_inicio, $fecha_fin, $id);
-         if ($data > 0) {
-            $res = array('tipo' => 'success', 'mensaje' => 'El Historico se actualizo con éxito');
-        } else {
-            $res = array('tipo' => 'error', 'mensaje' => 'Error al actualizar el Historico');
-        }
-    } 
-    
-  } else {
-    $res = array('tipo' => 'error', 'mensaje' => 'No se recibieron todos los datos del formulario');
+      echo json_encode($res, JSON_UNESCAPED_UNICODE);
+      die();
   }
   
-  echo json_encode($res, JSON_UNESCAPED_UNICODE);
-  die();
-}
 
 
   public function eliminar($id)
