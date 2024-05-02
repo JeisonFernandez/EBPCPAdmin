@@ -33,7 +33,8 @@ class Estudiantes extends Controller
         if ($data[$i]['estado'] == 'cursando') {
             $data[$i]['estado'] = '<span class="badge badge-success">Cursando</span>';
             $data[$i]['acciones'] = '<button title="Editar Estudiante" class="btn btn-info btn-sm" onclick="editar(' . $data[$i]['id'] . ')"><i class="fas fa-edit"></i></button>
-                                     <button title="Eliminar Estudiante" class="btn btn-danger btn-sm" onclick="eliminar('  . $data[$i]['id_datosA'] .')"><i class="fas fa-trash-alt"></i></button>';
+                                     <button title="Eliminar Estudiante" class="btn btn-danger btn-sm" onclick="eliminar('  . $data[$i]['id_datosA'] .')"><i class="fas fa-trash-alt"></i></button>
+                                     <button title="Funciones Estudiante" class="btn btn-dark btn-sm" onclick="funciones('  . $data[$i]['id'] .')"><i class="fas fa-cogs"></i></button>';
         } else {
             $data[$i]['estado'] = '<span class="badge badge-danger">No cursando</span>';
             $data[$i]['acciones'] = '<button title="Editar Estudiante" class="btn btn-info btn-sm" onclick="editar(' . $data[$i]['id'] . ')"><i class="fas fa-edit"></i></button>
@@ -254,4 +255,124 @@ public function guardar()
     $dompdf->stream('reporte-estudiantes.pdf', ['Attachment' => false]);
   }
   
+  public function pdfConstancia($id)
+  {
+
+    // CARGAR DATOS DE LA BD A DOMPDF
+    $data = $this->model->getEstudianteByID($id);
+
+    /* $rows = '';
+    foreach($data as $datos){
+      $rows .= '
+        <tr>
+          <td>' . $datos['id'] . '</td>
+          <td>' . $datos['nombre_completo'] . '</td>
+          <td>' . $datos['nombre_grado'] . '</td>
+          <td>' . $datos['fecha_nacimiento_alumno'] . '</td>
+          <td>' . $datos['direccion_alumno'] . '</td>
+          <td>' . $datos['talla'] . '</td>
+          <td>' . $datos['peso'] . '</td>
+          <td>' . $datos['altura'] . '</td>
+          <td>' . $datos['estado'] . '</td>
+        </tr>
+      ';
+    } */
+
+    // Crea una instancia de Dompdf recordar usar el Use al principio
+    $options = new Options();
+    $options->set('isHtml5ParserEnabled', true);
+    $options->set('isPhpEnabled', true);
+    $dompdf = new Dompdf($options);
+
+
+
+    // PONER IMAGENES EN DOMPDF
+    $rutaImagenLocal = 'assets/img/ing.jpg'; // Cambia esto a la ruta de tu imagen local
+    // Lee el contenido de la imagen
+    $contenidoImagen = file_get_contents($rutaImagenLocal);
+    // Codifica la imagen en Base64
+    $imagenBase64 = base64_encode($contenidoImagen);
+    $base64 = "data:image/jpeg;base64,$imagenBase64";
+
+
+    // Carga el contenido HTML (puedes usar una vista o generar HTML manualmente)
+    $html = '
+    <html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Constancia de Estudio</title>
+    <style type="text/css">
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+        }
+        .header {
+            position: relative;
+            text-align: left;
+            margin: 0;
+            padding: 10px;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            vertical-align: middle;
+        }
+        .titulo {
+            display: inline;
+            margin-left: 84px;
+            vertical-align: middle;
+        }
+        .main-content {
+            border: 1px solid #000;
+            margin: 20px;
+            padding: 20px;
+        }
+        .student-info {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .student-info p {
+            margin: 5px 0;
+        }
+        .footer {
+            text-align: center;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="'.$base64.'" alt="Logo de la Escuela" class="logo">
+        <h1 class="titulo">Constancia de Estudio</h1>
+    </div>
+    <div class="main-content">
+        <div class="student-info">
+            <p><strong>Nombre del Estudiante:</strong> '.$data['nombre_completo'].'</p>
+            <p><strong>Fecha:</strong> 2024</p>
+            <p><strong>Grado:</strong> '.$data['nombre_grado'].'</p>
+            <p><strong>Periodo Escolar:</strong> 2020-2024</p>
+        </div>
+        <p>Se certifica que el(la) estudiante '.$data['nombre_completo'].' cursa estudios en esta institución en el grado '.$data['nombre_grado'].', durante el periodo escolar 2020-2024.</p>
+        <p>Se expide la presente constancia a petición de la parte interesada para los fines que considere conveniente.</p>
+    </div>
+    <div class="footer">
+        <p>Atentamente,</p>
+        <p>Elizabeth Negrin</p>
+        <p>Directora de la Escuela</p>
+    </div>
+</body>
+</html>
+
+    ';
+
+    $dompdf->loadHtml($html);
+
+    // Renderiza el PDF
+    $dompdf->render();
+
+    // Muestra el PDF en una nueva página
+    $dompdf->stream('reporte-estudiantes.pdf', ['Attachment' => false]);
+  }
 }

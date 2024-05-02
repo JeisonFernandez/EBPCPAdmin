@@ -15,6 +15,7 @@ class Historico extends Controller
 
   public function index()
   {
+    $data['title'] = 'Historio';
     $data['usuario'] = $_SESSION['usuario'];
     $data['historico'] = $this->model->getHistorico();
     $data['script'] = 'historico.js';

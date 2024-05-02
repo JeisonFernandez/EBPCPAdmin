@@ -1,7 +1,10 @@
 const btnNewEstudiante = document.getElementById("btnNewEstudiante");
-const modalRegistroEstudiante = document.getElementById("modalRegistroEstudiante");
+const modalRegistroEstudiante = document.getElementById(
+  "modalRegistroEstudiante"
+);
 const frmEstudiante = document.getElementById("frmEstudiante");
 const titleEstudiante = document.getElementById("titleEstudiante");
+const modalFunciones = document.getElementById("modalFunciones");
 
 let tblEstudiantes;
 
@@ -21,8 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
     search: "Buscar:",
     zeroRecords: "Sin resultados encontrados",
   };
-
-  
 
   // CARGAR DATOS CON DATATABLE
   tblEstudiantes = $("#tblEstudiantes").DataTable({
@@ -60,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
     $("#modalRegistroEstudiante").modal("show");
   });
 
-
   frmEstudiante.addEventListener("submit", function (e) {
     e.preventDefault();
     bloquearEntrada(frmEstudiante);
@@ -75,76 +75,79 @@ document.addEventListener("DOMContentLoaded", function () {
       frmEstudiante.altura.value == "" ||
       frmEstudiante.estado.value == "" ||
       frmEstudiante.representante.value == "" ||
-      frmEstudiante.grado.value == "" 
-    ){
+      frmEstudiante.grado.value == ""
+    ) {
       alertaPersonalizada("warning", "Todos los campos son obligatorios");
-    }else{
+    } else {
+      const data = new FormData(frmEstudiante);
+      const http = new XMLHttpRequest();
+      const url = base_url + "Estudiantes/guardar";
 
-    const data = new FormData(frmEstudiante);
-    const http = new XMLHttpRequest();
-    const url = base_url + "Estudiantes/guardar";
+      http.open("POST", url, true);
+      http.send(data);
+      http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          const res = JSON.parse(this.responseText);
 
-    http.open("POST", url, true);
-    http.send(data);
-    http.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        const res = JSON.parse(this.responseText);
-
-        alertaPersonalizada(res.tipo, res.mensaje);
-        if (res.tipo == "success") {
-          frmEstudiante.reset();
-          $("#modalRegistroEstudiante").modal("hide");
-          tblEstudiantes.ajax.reload();
+          alertaPersonalizada(res.tipo, res.mensaje);
+          if (res.tipo == "success") {
+            frmEstudiante.reset();
+            $("#modalRegistroEstudiante").modal("hide");
+            tblEstudiantes.ajax.reload();
+          }
         }
-      }
-    };
-  } 
+      };
+    }
   });
 });
 
-
-
-
-
-
-$(document).ready(function(){
-  $('#representante').keyup(function(){
+$(document).ready(function () {
+  $("#representante").keyup(function () {
     var query = $(this).val();
-    if(query !== ''){
+    if (query !== "") {
       $.ajax({
         url: base_url + "Estudiantes/buscarRepresentantes",
-        method: 'POST',
-        data: {query:query},
-        dataType: 'json',
-        success: function(data){
+        method: "POST",
+        data: { query: query },
+        dataType: "json",
+        success: function (data) {
           console.log(data);
-          $('#representanteLista').empty();
-          $.each(data, function(key, value){
-            var representanteItem = $('<p>')
-              .addClass('representante-item')
-              .append('<span class="id">' + value.id + '</span> ' + value.nombre + ' ' + value.apellido + ' C.I:' + value.cedula)
-              .hover(function() {
-                $(this).css('background-color', '#e2e8f0');  
-              }, function() {
-                $(this).css('background-color', 'transparent'); 
-              });
-            $('#representanteLista').append(representanteItem);
+          $("#representanteLista").empty();
+          $.each(data, function (key, value) {
+            var representanteItem = $("<p>")
+              .addClass("representante-item")
+              .append(
+                '<span class="id">' +
+                  value.id +
+                  "</span> " +
+                  value.nombre +
+                  " " +
+                  value.apellido +
+                  " C.I:" +
+                  value.cedula
+              )
+              .hover(
+                function () {
+                  $(this).css("background-color", "#e2e8f0");
+                },
+                function () {
+                  $(this).css("background-color", "transparent");
+                }
+              );
+            $("#representanteLista").append(representanteItem);
           });
-          $('.id').css('color', 'white'); 
-        }
+          $(".id").css("color", "white");
+        },
       });
     }
   });
 
-  $(document).on('click', '.representante-item', function(){
+  $(document).on("click", ".representante-item", function () {
     var nombreCompleto = $(this).text();
-    $('#representante').val(nombreCompleto);
-    $('#representanteLista').empty();
+    $("#representante").val(nombreCompleto);
+    $("#representanteLista").empty();
   });
 });
-
-
-
 
 function eliminar(id) {
   const url = base_url + "Estudiantes/eliminar/" + id;
@@ -156,7 +159,6 @@ function eliminar(id) {
     tblEstudiantes
   );
 }
-
 
 function editar(id) {
   const http = new XMLHttpRequest();
@@ -170,7 +172,7 @@ function editar(id) {
   http.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       const res = JSON.parse(this.responseText);
-      
+
       frmEstudiante.id_estudiante.value = res.id;
       frmEstudiante.nombre_alumno.value = res.nombre_alumno;
       frmEstudiante.apellido_alumno.value = res.apellido_alumno;
@@ -187,19 +189,30 @@ function editar(id) {
       for (let i = 0; i < frmEstudiante.grado.options.length; i++) {
         if (frmEstudiante.grado.options[i].value === idGrado.toString()) {
           frmEstudiante.grado.options[i].selected = true;
-          break; 
+          break;
         }
       }
 
       titleEstudiante.textContent = "Editar Estudiante";
       $("#modalRegistroEstudiante").modal("show");
-      $('#representante').prop('readonly', true);
-      
-      
-      $('#modalRegistroEstudiante').on('hidden.bs.modal', function () {
-        $('#representante').prop('readonly', false);
+      $("#representante").prop("readonly", true);
+
+      $("#modalRegistroEstudiante").on("hidden.bs.modal", function () {
+        $("#representante").prop("readonly", false);
       });
     }
   };
 }
 
+function funciones(id) {
+  $("#modalFunciones").modal("show");
+  const btnConstancia = document.getElementById("btnConstancia");
+
+  
+  btnConstancia.addEventListener("click", function (e) {
+    
+    btnConstancia.setAttribute('href', base_url + 'Estudiantes/pdfConstancia/' + id);
+
+    $("#modalFunciones").modal("hide");
+  });
+}

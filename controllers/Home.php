@@ -33,10 +33,10 @@ class Home extends Controller
 
         $res = array('tipo' => 'success', 'mensaje' => 'Bienvenido al sistema de administración EBCP Admin');
       } else {
-        $res = array('tipo' => 'warning', 'mensaje' => 'Contraseña incorrecta');
+        $res = array('tipo' => 'warning', 'mensaje' => 'Usuario o contraseña incorrecta.');
       }
     } else {
-      $res = array('tipo' => 'warning', 'mensaje' => 'El usuario no existe');
+      $res = array('tipo' => 'warning', 'mensaje' => 'Usuario o contraseña incorrecta.');
     }
 
     echo json_encode($res, JSON_UNESCAPED_UNICODE);

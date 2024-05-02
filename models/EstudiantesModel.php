@@ -42,7 +42,39 @@ JOIN
     return $data;
   }
 
-  
+  public function getEstudianteByID($id){
+    $sql = "SELECT 
+    alumnos.id, 
+    alumnos.talla, 
+    alumnos.peso, 
+    alumnos.altura, 
+    alumnos.estado,
+    alumnos.id_datosA,
+    CONCAT(
+        datos_representantes.nombre, ' ', 
+        datos_representantes.apellido, ' -C.I: ', 
+        representantes.cedula, ' -Tlf: ', 
+        representantes.telefono, ' -Relacion: ', 
+        representantes.relacion
+    ) AS representante_info, 
+    grados.descripcion AS nombre_grado, 
+    grados.descripcion AS descripcion_grado, 
+    CONCAT(datos_alumnos.nombre, ' ', datos_alumnos.apellido) AS nombre_completo, 
+    datos_alumnos.fecha_nac AS fecha_nacimiento_alumno, 
+    datos_alumnos.direccion AS direccion_alumno 
+FROM 
+    alumnos 
+JOIN 
+    representantes ON alumnos.id_representante = representantes.id 
+JOIN 
+    datos_personales AS datos_representantes ON representantes.id_datosR = datos_representantes.id 
+JOIN 
+    grados ON alumnos.id_grado = grados.id 
+JOIN 
+    datos_personales AS datos_alumnos ON alumnos.id_datosA = datos_alumnos.id WHERE estado='cursando' AND alumnos.id = $id";
+    return $this->select($sql);
+  }
+
 
   public function getGrados()
   {
