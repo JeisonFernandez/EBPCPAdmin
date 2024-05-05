@@ -1,7 +1,5 @@
 const btnNewEstudiante = document.getElementById("btnNewEstudiante");
-const modalRegistroEstudiante = document.getElementById(
-  "modalRegistroEstudiante"
-);
+const modalRegistroEstudiante = document.getElementById("modalRegistroEstudiante");
 const frmEstudiante = document.getElementById("frmEstudiante");
 const titleEstudiante = document.getElementById("titleEstudiante");
 const modalFunciones = document.getElementById("modalFunciones");
@@ -56,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
 
     frmEstudiante.reset();
-    bloquearEntrada(frmEstudiante);
+    EntradaAlumno(frmEstudiante);
 
     titleEstudiante.textContent = "Nuevo Estudiante";
     $("#modalRegistroEstudiante").modal("show");
@@ -64,14 +62,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   frmEstudiante.addEventListener("submit", function (e) {
     e.preventDefault();
-    bloquearEntrada(frmEstudiante);
+    EntradaAlumno(frmEstudiante);
 
     if (
       frmEstudiante.nombre_alumno.value == "" ||
       frmEstudiante.apellido_alumno.value == "" ||
       frmEstudiante.fecha_nacimiento.value == "" ||
       frmEstudiante.direccion.value == "" ||
-      frmEstudiante.talla.value == "" ||
+      frmEstudiante.talla_camisa.value == "" ||
+      frmEstudiante.talla_pantalon.value == "" ||
       frmEstudiante.peso.value == "" ||
       frmEstudiante.altura.value == "" ||
       frmEstudiante.estado.value == "" ||
@@ -179,7 +178,8 @@ function editar(id) {
       frmEstudiante.apellido_alumno.value = res.apellido_alumno;
       frmEstudiante.fecha_nacimiento.value = res.fecha_nacimiento_alumno;
       frmEstudiante.direccion.value = res.direccion_alumno;
-      frmEstudiante.talla.value = res.talla;
+      frmEstudiante.talla_camisa.value = res.talla_camisa;
+      frmEstudiante.talla_pantalon.value = res.talla_pantalon;
       frmEstudiante.peso.value = res.peso;
       frmEstudiante.altura.value = res.altura;
       frmEstudiante.estado.value = res.estado;

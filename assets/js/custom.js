@@ -96,3 +96,18 @@ function bloquearEntrada(inputElement) {
   });
 }
 
+function EntradaAlumno(inputElement) {
+  inputElement.addEventListener("input", function (event) {
+    const inputValue = event.target.value;
+
+    if (event.target.id === "peso" || event.target.id === "altura") {
+      const cleanValue = inputValue.replace(/[^\d.,]/g, ""); 
+      event.target.value = cleanValue;
+    } else {
+      if (event.target.type !== "date") {
+        const cleanValue = inputValue.replace(/[<>&=]|script|SELECT|DELETE|UPDATE|INSERT|DROP|ALTER|[^\w\s]/gi, "");
+        event.target.value = cleanValue;
+      }
+    }
+  });
+}

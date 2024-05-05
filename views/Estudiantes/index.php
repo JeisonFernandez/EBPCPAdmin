@@ -33,7 +33,8 @@
             <th>Grado</th>
             <th>Fecha Nacimiento</th>
             <th>Dirección</th>
-            <th>Talla</th>
+            <th>Talla Camisa</th>
+            <th>Talla Pantalón</th>
             <th>Peso</th>
             <th>Altura</th>
             <th>Estado</th>
@@ -88,21 +89,33 @@
           </div>
 
           <div class="row mb-2">
-            <div class="col-md-4">
-              <label for="talla">Talla</label>
+            <div class="col-md-6">
+              <label for="talla_camisa">Talla Camisa</label>
               <div class="input-group">
-                <input class="form-control" type="text" id="talla" name="talla" placeholder="Talla">
+                <input class="form-control" type="text" id="talla_camisa" name="talla_camisa" placeholder="Talla de la camisa">
                 <span class="input-group-text"><i class="fas fa-ruler-vertical"></i></span>
               </div>
             </div>
-            <div class="col-md-4">
+
+            <div class="col-md-6">
+              <label for="talla_pantalon">Talla Pantalón</label>
+              <div class="input-group">
+                <input class="form-control" type="text" id="talla_pantalon" name="talla_pantalon" placeholder="Talla del pantalón">
+                <span class="input-group-text"><i class="fas fa-ruler-vertical"></i></span>
+              </div>
+            </div>
+            
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-6">
               <label for="peso">Peso</label>
               <div class="input-group">
                 <input class="form-control" type="text" id="peso" name="peso" placeholder="Peso">
                 <span class="input-group-text"><i class="fas fa-weight"></i></span>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label for="altura">Altura</label>
               <div class="input-group">
                 <input class="form-control" type="text" id="altura" name="altura" placeholder="Altura">
