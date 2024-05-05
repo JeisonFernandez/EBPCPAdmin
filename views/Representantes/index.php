@@ -99,21 +99,30 @@
           </div>
 
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <label for="telefono">Telefono</label>
               <div class="input-group mb-2">
                 <input class="form-control validanumericos" type="text" minlength="11" maxlength="12" id="telefono" name="telefono" placeholder="Telefono">
                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
               </div>
             </div>
-
-            <div class="col-md-6">
-              <label for="relacion">Relación</label>
-              <div class="input-group mb-2">
-                <input class="form-control" type="text" maxlength="20" id="relacion" name="relacion" placeholder="Relacion">
-                <span class="input-group-text"><i class="fas fa-users"></i></span>
-              </div>
-            </div>
+          </div>
+          <label for="relacion">Relacion</label>
+          <div class="input-group">
+            <select name="relacion" id="relacion" class="form-control">
+              <?php if (isset($data['representante']['relacion'])) { ?>
+                <?php foreach ($data['parentesco'] as $parentesco) { ?>
+                  <option value="<?php echo $parentesco['id']; ?>" <?php if ($parentesco['id'] == $data['representante']['relacion'])
+                      echo 'selected="selected"'; ?>><?php echo $parentesco['descripcion']; ?></option>
+                <?php } ?>
+              <?php } else { ?>
+                <option value="" selected>Seleccione el parentesco</option>
+                <?php foreach ($data['parentesco'] as $parentesco) { ?>
+                  <option value="<?php echo $parentesco['id']; ?>"><?php echo $parentesco['relacion']; ?></option>
+                <?php } ?>
+              <?php } ?>
+            </select>
+            <span class="input-group-text"><i class="fas fa-user-friends"></i></span>
           </div>
         </div>
 

@@ -11,7 +11,8 @@ class EstudiantesModel extends Query
   {
       $sql="SELECT 
     alumnos.id, 
-    alumnos.talla, 
+    alumnos.talla_camisa,
+    alumnos.talla_pantalon, 
     alumnos.peso, 
     alumnos.altura, 
     alumnos.estado,
@@ -21,7 +22,7 @@ class EstudiantesModel extends Query
         datos_representantes.apellido, ' -C.I: ', 
         representantes.cedula, ' -Tlf: ', 
         representantes.telefono, ' -Relacion: ', 
-        representantes.relacion
+        parentesco_alumno.relacion 
     ) AS representante_info, 
     grados.descripcion AS nombre_grado, 
     grados.descripcion AS descripcion_grado, 
@@ -32,6 +33,9 @@ FROM
     alumnos 
 JOIN 
     representantes ON alumnos.id_representante = representantes.id 
+JOIN 
+    parentesco_alumno ON representantes.relacion = parentesco_alumno.id  
+
 JOIN 
     datos_personales AS datos_representantes ON representantes.id_datosR = datos_representantes.id 
 JOIN 
@@ -45,7 +49,8 @@ JOIN
   public function getEstudianteByID($id){
     $sql = "SELECT 
     alumnos.id, 
-    alumnos.talla, 
+    alumnos.talla_camisa,
+    alumnos.talla_pantalon, 
     alumnos.peso, 
     alumnos.altura, 
     alumnos.estado,
@@ -110,10 +115,10 @@ JOIN
     return $this->insertar($sql, $datos);
   }
 
-  public function registrarEstudiante($talla, $peso, $altura, $estado, $idRepresentante, $idGrado, $idDatosA)
+  public function registrarEstudiante($talla_camisa, $talla_pantalon, $peso, $altura, $estado, $idRepresentante, $idGrado, $idDatosA)
   {
-    $sql = "INSERT INTO alumnos (talla, peso, altura, estado, id_representante, id_grado, id_datosA) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    $datos = array($talla, $peso, $altura, $estado, $idRepresentante, $idGrado, $idDatosA);
+    $sql = "INSERT INTO alumnos (talla_camisa, talla_pantalon, peso, altura, estado, id_representante, id_grado, id_datosA) VALUES (?,?, ?, ?, ?, ?, ?, ?)";
+    $datos = array($talla_camisa, $talla_pantalon, $peso, $altura, $estado, $idRepresentante, $idGrado, $idDatosA);
     return $this->insertar($sql, $datos);
   }
 
@@ -135,19 +140,17 @@ JOIN
   {
     $sql="SELECT 
     alumnos.id, 
-    alumnos.talla, 
+    alumnos.talla_camisa,
+    alumnos.talla_pantalon, 
     alumnos.peso, 
     alumnos.altura, 
     alumnos.estado, 
     alumnos.id_grado,
     alumnos.id_datosA,
     CONCAT(
-        representantes.id, ' -', 
+        representantes.id, ') ', 
         datos_representantes.nombre, ' ', 
-        datos_representantes.apellido, ' - ', 
-        representantes.cedula, ' - ', 
-        representantes.telefono, ' - ', 
-        representantes.relacion
+        datos_representantes.apellido 
     ) AS representante_info, 
     grados.descripcion AS nombre_grado, 
     grados.descripcion AS descripcion_grado, 
@@ -160,6 +163,8 @@ FROM
 JOIN 
     representantes ON alumnos.id_representante = representantes.id 
 JOIN 
+    parentesco_alumno ON representantes.relacion = parentesco_alumno.id  
+JOIN 
     datos_personales AS datos_representantes ON representantes.id_datosR = datos_representantes.id 
 JOIN 
     grados ON alumnos.id_grado = grados.id 
@@ -169,7 +174,6 @@ JOIN
    
   }
 
-  
 
   public function getDatosPersonales($id){
     $sql="SELECT id_datosA FROM `alumnos` WHERE id=$id";
@@ -186,10 +190,10 @@ JOIN
 
   }
 
-  public function modificarEstudiante( $talla, $peso, $altura, $estado, $idRepresentante, $idGrado,$id)
+  public function modificarEstudiante( $talla_camisa, $talla_pantalon, $peso, $altura, $estado, $idRepresentante, $idGrado,$id)
   {
-    $sql = "UPDATE alumnos SET talla = ?, peso = ?, altura = ?, estado = ?, id_representante = ?, id_grado = ? WHERE id = ?";
-    $datos = array($talla, $peso, $altura, $estado, $idRepresentante, $idGrado, $id);
+    $sql = "UPDATE alumnos SET talla_camisa = ?, talla_pantalon = ?, peso = ?, altura = ?, estado = ?, id_representante = ?, id_grado = ? WHERE id = ?";
+    $datos = array($talla_camisa, $talla_pantalon, $peso, $altura, $estado, $idRepresentante, $idGrado, $id);
     return $this->save($sql, $datos);
   }
 

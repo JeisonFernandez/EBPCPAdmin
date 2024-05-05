@@ -9,8 +9,9 @@ class RepresentantesModel extends Query
 
   public function getRepresentante($id)
   {
-    $sql = "SELECT r.*, d.nombre, d.apellido, d.fecha_nac, d.direccion
+    $sql = "SELECT r.*, p.relacion as relaciones, d.nombre, d.apellido, d.fecha_nac, d.direccion
     FROM representantes r
+    INNER JOIN parentesco_alumno p ON r.relacion = p.id
     INNER JOIN datos_personales d
     WHERE r.id_datosR = d.id
     AND r.id = $id";
@@ -19,12 +20,21 @@ class RepresentantesModel extends Query
 
   public function getRepresentantes()
   {
-    $sql = "SELECT r.id, r.cedula, r.telefono, r.relacion, d.nombre, d.apellido, d.fecha_nac, d.direccion
+    $sql = "SELECT r.id, r.cedula, r.telefono, p.relacion, d.nombre, d.apellido, d.fecha_nac, d.direccion
     FROM representantes r
-    INNER JOIN datos_personales d ON r.id_datosR = d.id";
+    INNER JOIN datos_personales d ON r.id_datosR = d.id
+    INNER JOIN parentesco_alumno p ON r.relacion = p.id";
 
     return $this->selectAll($sql);
   }
+
+  public function getParentesco()
+  {
+    $sql = "SELECT * FROM parentesco_alumno";
+    $data = $this->selectAll($sql);
+    return $data;
+  }
+
 
   public function registrarDatosPersonales($nombre, $apellido, $fechaNacimiento, $direccion)
   {

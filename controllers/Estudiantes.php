@@ -58,13 +58,14 @@ class Estudiantes extends Controller
 public function guardar()
 {
   
-  if(isset($_POST['nombre_alumno'], $_POST['apellido_alumno'], $_POST['fecha_nacimiento'], $_POST['direccion'], $_POST['talla'], $_POST['peso'], $_POST['altura'], $_POST['estado'], $_POST['representante'], $_POST['grado'])) {
+  if(isset($_POST['nombre_alumno'], $_POST['apellido_alumno'], $_POST['fecha_nacimiento'], $_POST['direccion'], $_POST['talla_camisa'], $_POST['talla_pantalon'], $_POST['peso'], $_POST['altura'], $_POST['estado'], $_POST['representante'], $_POST['grado'])) {
     
     $nombre = $_POST['nombre_alumno'];
     $apellido = $_POST['apellido_alumno'];
     $fechaNacimiento = $_POST['fecha_nacimiento'];
     $direccion = $_POST['direccion'];
-    $talla = $_POST['talla'];
+    $talla_camisa = $_POST['talla_camisa'];
+    $talla_pantalon = $_POST['talla_pantalon'];
     $peso = $_POST['peso'];
     $altura = $_POST['altura'];
     $estado = $_POST['estado'];
@@ -73,18 +74,20 @@ public function guardar()
     $idd= $_POST["id_datos"];
    
     $idEstudiante = isset($_POST['id_estudiante']) ? $_POST['id_estudiante'] : null;
+    $peso = str_replace(',', '.', $peso);
+    $altura = str_replace(',', '.', $altura);
     $fechaInicio = date('Y-m-d H:i:s');
     $estadoAnterior = ''; 
     $estadoNuevo = $estado;
    
-    if (empty($nombre) || empty($apellido) || empty($fechaNacimiento) || empty($direccion) || empty($talla) || empty($peso) || empty($altura) || empty($estado) || empty($idRepresentante) || empty($idGrado)) {
+    if (empty($nombre) || empty($apellido) || empty($fechaNacimiento) || empty($direccion) || empty($talla_camisa) || empty($talla_pantalon) || empty($peso) || empty($altura) || empty($estado) || empty($idRepresentante) || empty($idGrado)) {
       $res = array('tipo' => 'warning', 'mensaje' => 'Todos los campos son requeridos');
     } else {
       if ($idEstudiante) {
         $idDatos = $this->model->modificarDatosPersonales($nombre, $apellido, $fechaNacimiento, $direccion, $idd);
 
         if ($idDatos > 0) {
-            $data = $this->model->modificarEstudiante($talla, $peso, $altura, $estado, $idRepresentante, $idGrado, $idEstudiante);
+            $data = $this->model->modificarEstudiante($talla_camisa, $talla_pantalon, $peso, $altura, $estado, $idRepresentante, $idGrado, $idEstudiante);
             if ($data > 0) {
                 $res = array('tipo' => 'success', 'mensaje' => 'Estudiante actualizado con éxito');
             } else {
@@ -96,7 +99,7 @@ public function guardar()
       } else {
         $idDatosA = $this->model->registrarDatosPersonales($nombre, $apellido, $fechaNacimiento, $direccion);
         if ($idDatosA > 0) {
-          $data = $this->model->registrarEstudiante($talla, $peso, $altura, $estado, $idRepresentante, $idGrado, $idDatosA);
+          $data = $this->model->registrarEstudiante($talla_camisa, $talla_pantalon, $peso, $altura, $estado, $idRepresentante, $idGrado, $idDatosA);
           $idAlumno = $data; 
           $this->model->agregarHistorico($idAlumno, $fechaInicio, $estadoAnterior, $estadoNuevo);
           if ($data > 0) {
@@ -154,7 +157,8 @@ public function guardar()
           <td>' . $datos['nombre_grado'] . '</td>
           <td>' . $datos['fecha_nacimiento_alumno'] . '</td>
           <td>' . $datos['direccion_alumno'] . '</td>
-          <td>' . $datos['talla'] . '</td>
+          <td>' . $datos['talla_camisa'] . '</td>
+          <td>' . $datos['talla_pantalon'] . '</td>
           <td>' . $datos['peso'] . '</td>
           <td>' . $datos['altura'] . '</td>
           <td>' . $datos['estado'] . '</td>
@@ -235,7 +239,8 @@ public function guardar()
                 <th>Grado</th>
                 <th>Fecha de Nacimiento</th>
                 <th>Dirección</th>
-                <th>Talla</th>
+                <th>Talla Camisa</th>
+                <th>Talla Pantalón</th>
                 <th>Peso</th>
                 <th>Altura</th>
                 <th>Estado</th>

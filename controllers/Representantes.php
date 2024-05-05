@@ -18,6 +18,7 @@ class Representantes extends Controller
   {
     $data['title'] = 'Representantes';
     $data['usuario'] = $_SESSION['usuario'];
+    $data['parentesco'] = $this->model->getParentesco();
     $data['script'] = "representantes.js";
     $this->views->getView($this, 'index', $data);
   }

@@ -106,6 +106,8 @@
                         <h6 class="collapse-header">Ajustes de Usuarios:</h6>
                         <a class="collapse-item" href="Usuarios"><i class="fas fa-users"></i> Usuarios</a>
                         <a class="collapse-item" href="Roles"><i class="fas fa-user-shield"></i> Roles</a>
+                        <a class="collapse-item" href="Parentesco"><i class="fas fa-user-friends"></i> Parentesco Alumno</a>
+
                     </div>
                 </div>
             </li>
