@@ -12,7 +12,7 @@
   <div class="card-header py-3">
     <div class="d-sm-flex align-items-center justify-content-between mb-4 resposive-ch">
       <h1 class="h2 mb-0 text-gray-800">Parentesco Alumno</h1>
-      <button id="btnNewParentesco" class="btn btn-primary" type="button">Nuevo Grado <i
+      <button id="btnNewParentesco" class="btn btn-primary" type="button">Nueva Relación <i
           class="fas fa-plus"></i></button>
     </div>
   </div>

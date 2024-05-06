@@ -203,4 +203,10 @@ JOIN
       $datos = array($idAlumno, $fechaInicio, $estadoAnterior, $estadoNuevo);
       return $this->insertar($sql, $datos);
   }
+  public function modificar_fechaFinHistorico($idAlumno, $fechaFin)
+{
+    $sql = "UPDATE historico_alumnos SET fecha_fin = ? WHERE id_alumno = ? ";
+    $datos = array($fechaFin, $idAlumno); 
+    return $this->save($sql, $datos);
+}
 }

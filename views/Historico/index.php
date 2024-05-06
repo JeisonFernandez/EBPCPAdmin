@@ -1,6 +1,13 @@
 <?php include 'views/Templates/header.php' ?>
 
 <!-- Page Heading -->
+<div class="d-flex navegacion card shadow border-bottom-primary mb-2">
+    <a class="disabled active" href="Principal">Home</a>
+    <a class="desabilitar">/</a>
+    <a class="desabilitar">Historico</a>
+    <a class="desabilitar">/</a>
+</div>
+
 <div class="card shadow mb-4">
   <div class="card-header py-3">
     <div class="d-sm-flex align-items-center justify-content-between mb-4 resposive-ch">

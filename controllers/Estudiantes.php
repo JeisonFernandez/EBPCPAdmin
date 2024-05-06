@@ -88,6 +88,7 @@ public function guardar()
 
         if ($idDatos > 0) {
             $data = $this->model->modificarEstudiante($talla_camisa, $talla_pantalon, $peso, $altura, $estado, $idRepresentante, $idGrado, $idEstudiante);
+            $data = $this->model->modificar_fechaFinHistorico( $idEstudiante, $fechaInicio);
             if ($data > 0) {
                 $res = array('tipo' => 'success', 'mensaje' => 'Estudiante actualizado con éxito');
             } else {
