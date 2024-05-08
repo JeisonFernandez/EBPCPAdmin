@@ -66,13 +66,13 @@
         <div class="modal-body mb-2">
           <label for="nombre_alumno">Nombre</label>
           <div class="input-group mb-2">
-            <input class="form-control" type="text" id="nombre_alumno" name="nombre_alumno" placeholder="Nombre">
+            <input class="form-control validarLetras" type="text" id="nombre_alumno" name="nombre_alumno" placeholder="Nombre">
             <span class="input-group-text"><i class="fas fa-user"></i></span>
           </div>
 
           <label for="apellido_alumno">Apellido</label>
           <div class="input-group mb-2">
-            <input class="form-control" type="text" id="apellido_alumno" name="apellido_alumno" placeholder="Apellido">
+            <input class="form-control validarLetras" type="text" id="apellido_alumno" name="apellido_alumno" placeholder="Apellido">
             <span class="input-group-text"><i class="fas fa-user"></i></span>
           </div>
 
@@ -109,16 +109,16 @@
 
           <div class="row mb-2">
             <div class="col-md-6">
-              <label for="peso">Peso</label>
+              <label for="peso">Peso (kg)</label>
               <div class="input-group">
-                <input class="form-control" type="text" id="peso" name="peso" placeholder="Peso">
+                <input class="form-control" type="text" id="peso" name="peso" placeholder="Ej. 50.5">
                 <span class="input-group-text"><i class="fas fa-weight"></i></span>
               </div>
             </div>
             <div class="col-md-6">
               <label for="altura">Altura</label>
               <div class="input-group">
-                <input class="form-control" type="text" id="altura" name="altura" placeholder="Altura">
+                <input class="form-control" type="text" id="altura" name="altura" placeholder="Ej. 1.60">
                 <span class="input-group-text"><i class="fas fa-arrows-alt-v"></i></span>
               </div>
             </div>
