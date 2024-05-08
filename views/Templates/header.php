@@ -65,14 +65,14 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
                     aria-expanded="true" aria-controls="collapseOne">
                     <i class="fas fa-user-graduate"></i>
-                    <span>Alumnos</span>
+                    <span>Registro Participante</span>
                 </a>
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Datos:</h6>
                         <a class="collapse-item" href="Estudiantes"><i class="fas fa-user-graduate"></i> Alumnos</a>
                         <a class="collapse-item" href="Representantes"><i class="fas fa-users"></i> Representantes</a>
-                        <a class="collapse-item" href="Historico"><i class="fas fa-history"></i> Historico</a>
+                        <a class="collapse-item" href="Historico"><i class="fas fa-history"></i> Histórico</a>
                     </div>
                 </div>
             </li>
@@ -82,7 +82,7 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-graduation-cap"></i>
-                    <span>Grados</span>
+                    <span>Registro Académico</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
