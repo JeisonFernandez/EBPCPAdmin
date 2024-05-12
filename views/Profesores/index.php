@@ -72,7 +72,7 @@
             <div class="col-md-6">
               <label for="nombre">Nombre</label>
               <div class="input-group mb-2">
-                <input class="form-control" type="text" maxlength="50" id="nombre" name="nombre" placeholder="Nombre">
+                <input class="form-control validarLetras" type="text" maxlength="50" id="nombre" name="nombre" placeholder="Nombre">
                 <span class="input-group-text"><i class="fas fa-user"></i></span>
               </div>
             </div>
@@ -80,7 +80,7 @@
             <div class="col-md-6">
               <label for="apellido">Apellido</label>
               <div class="input-group mb-2">
-                <input class="form-control" type="text" maxlength="50" id="apellido" name="apellido" placeholder="Apellido">
+                <input class="form-control validarLetras" type="text" maxlength="50" id="apellido" name="apellido" placeholder="Apellido">
                 <span class="input-group-text"><i class="fas fa-user"></i></span>
               </div>
             </div>

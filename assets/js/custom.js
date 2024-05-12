@@ -111,3 +111,19 @@ function EntradaAlumno(inputElement) {
     }
   });
 }
+
+onload = function () {
+  let cantidad = document.querySelectorAll(".validarLetras").length;
+  for (let i = 0; i < cantidad; i++) {
+    var ele = document.querySelectorAll(".validarLetras")[i];
+    ele.onkeypress = function (e) {
+      let letras = e.charCode;
+      if ((letras < 65 || letras > 90) && (letras < 97 || letras > 122)) {
+        return false;
+      }
+    };
+    ele.onpaste = function (e) {
+      e.preventDefault();
+    };
+  }
+};

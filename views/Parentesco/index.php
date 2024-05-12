@@ -51,7 +51,7 @@
 
         <label for="relacion">Relacion</label>
         <div class="input-group mb-2">
-            <input class="form-control" type="text" id="relacion" name="relacion" placeholder="Relacion">
+            <input class="form-control validarLetras" type="text" id="relacion" name="relacion" placeholder="Relacion">
             <span class="input-group-text"><i class="fas fa-align-left"></i></span>
         </div>
 
