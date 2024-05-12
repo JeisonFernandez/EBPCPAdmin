@@ -1,6 +1,7 @@
 const frmLogin = document.getElementById("frmLogin");
 const usuario = document.getElementById("usuario");
 const clave = document.getElementById("clave");
+const btnRecovery = document.getElementById("btnRecovery");
 
 document.addEventListener("DOMContentLoaded", function () {
   frmLogin.addEventListener("submit", (e) => {
@@ -47,4 +48,13 @@ document.addEventListener("DOMContentLoaded", function () {
       };
     }
   });
+
+  btnRecovery.addEventListener("click", function(e){
+    e.preventDefault();
+    Swal.fire({
+      icon: "warning",
+      title: "¿Olvidaste tu contraseña?",
+      text: "Si ha olvidado su contraseña, por favor, póngase en contacto con el administrador del sistema para iniciar el proceso de recuperación de la misma. Agradecemos su colaboración.",
+    });
+  })
 });

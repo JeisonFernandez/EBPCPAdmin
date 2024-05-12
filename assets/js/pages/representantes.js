@@ -111,7 +111,7 @@ function editar(id) {
       frmRepresentantes.relacion.value = res.relacion;
       bloquearEntrada(frmRepresentantes);
 
-      title.textContent = "Editar Usuario";
+      title.textContent = "Editar Representantes";
       $("#modalRegistro").modal("show");
     }
   };

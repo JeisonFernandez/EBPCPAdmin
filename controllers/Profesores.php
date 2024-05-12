@@ -2,8 +2,9 @@
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-class Representantes extends Controller
+class Profesores extends Controller
 {
+
   public function __construct()
   {
     session_start();
@@ -13,19 +14,18 @@ class Representantes extends Controller
     }
     parent::__construct();
   }
-
   public function index()
   {
-    $data['title'] = 'Representantes';
     $data['usuario'] = $_SESSION['usuario'];
-    $data['parentesco'] = $this->model->getParentesco();
-    $data['script'] = "representantes.js";
-    $this->views->getView($this, 'index', $data);
+    $data['grados'] = $this->model->getGrados();
+    $data['script'] = 'profesores.js';
+    $data["title"] = "Profesores";
+    $this->views->getView($this, "index", $data);
   }
 
   public function listar()
   {
-    $data = $this->model->getRepresentantes();
+    $data = $this->model->getProfesores();
     for ($i = 0; $i < count($data); $i++) {
       $data[$i]['acciones'] = '<div">
             <button title="Editar usuario" class="btn btn-info btn-sm" onclick="editar(' . $data[$i]['id'] . ')"><i class="fas fa-edit"></i></button>
@@ -45,51 +45,52 @@ class Representantes extends Controller
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
     $fecha = $_POST['fecha'];
+    $correo = $_POST['correo'];
     $direccion = $_POST['direccion'];
     $telefono = $_POST['telefono'];
-    $relacion = $_POST['relacion'];
-    $idRepre = $_POST['idRepre'];
+    $grado = $_POST['grado'];
+    $idProfe = $_POST['idProfe'];
     $idDatos = $_POST['idDatos'];
 
-    if (empty($cedula) || empty($nombre) || empty($apellido) || empty($fecha) || empty($direccion) || empty($telefono) || empty($relacion)) {
+    if (empty($cedula) || empty($nombre) || empty($apellido) || empty($correo) || empty($fecha) || empty($direccion) || empty($telefono)) {
       $res = array("tipo" => "warning", "mensaje" => "Todos los campos son obligatorios");
     } else {
-      if ($idRepre == "") {
+      if ($idProfe == "") {
         $verificarCedula = $this->model->getVerificar("cedula", $cedula, 0);
 
         if (empty($verificarCedula)) {
-          $idDatosR = $this->model->registrarDatosPersonales($nombre, $apellido, $fecha, $direccion);
+          $idDatosP = $this->model->registrarDatosPersonales($nombre, $apellido, $fecha, $direccion);
 
-          $data = $this->model->registrarRepresentantes($cedula, $telefono, $relacion, $idDatosR);
+          $data = $this->model->registrarProfesores($cedula, $telefono, $correo, $grado, $idDatosP);
 
           if ($data > 0) {
-            $res = array("tipo" => "success", "mensaje" => "Representante registrado con exito");
+            $res = array("tipo" => "success", "mensaje" => "Profesor registrado con exito");
           } else {
-            $res = array("tipo" => "error", "mensaje" => "Error al registrar representante");
+            $res = array("tipo" => "error", "mensaje" => "Error al registrar profesor");
           }
         } else {
-          $res = array("tipo" => "warning", "mensaje" => "El representante ya existe");
+          $res = array("tipo" => "warning", "mensaje" => "El profesor ya existe");
         }
       } else {
-        $verificarCedula = $this->model->getVerificar("cedula", $cedula, $idRepre);
+        $verificarCedula = $this->model->getVerificar("cedula", $cedula, $idProfe);
 
         if (empty($verificarCedula)) {
           $datos = $this->model->modificarDatosPersonales($nombre, $apellido, $fecha, $direccion, $idDatos);
 
           if ($datos == 1) {
-            $data = $this->model->modificarRepresentantes($cedula, $telefono, $relacion, $idDatos, $idRepre);
+            $data = $this->model->modificarProfesores($cedula, $telefono, $correo, $grado, $idDatos, $idProfe);
 
             if ($data == 1) {
-              $res = array("tipo" => "success", "mensaje" => "Representante modificado con exito");
+              $res = array("tipo" => "success", "mensaje" => "Profesor modificado con exito");
             } else {
-              $res = array("tipo" => "error", "mensaje" => "Error al modificar representante");
+              $res = array("tipo" => "error", "mensaje" => "Error al modificar un profesor");
             }
           } else {
-            $res = array("tipo" => "error", "mensaje" => "Error al modificar representante");
+            $res = array("tipo" => "error", "mensaje" => "Error al modificar un profesor");
           }
 
         } else {
-          $res = array("tipo" => "warning", "mensaje" => "El representante ya existe");
+          $res = array("tipo" => "warning", "mensaje" => "El profesor ya existe");
         }
       }
 
@@ -99,37 +100,11 @@ class Representantes extends Controller
     die();
   }
 
+
   public function editar($id)
   {
-    $data = $this->model->getRepresentante($id);
+    $data = $this->model->getProfesor($id);
     echo json_encode($data, JSON_UNESCAPED_UNICODE);
-    die();
-  }
-
-  public function comprobarEliminar($id)
-  {
-    $data = $this->model->comprobarE($id);
-
-    if ($data > 0) {
-      $res = array("tipo" => "warning", "mensaje" => "Representante no eliminable");
-    } else {
-      $res = array("tipo" => "success", "mensaje" => "Representante eliminable");
-    }
-
-    echo json_encode($res, JSON_UNESCAPED_UNICODE);
-    die();
-  }
-
-  public function eliminar($id)
-  {
-    $data = $this->model->delete($id);
-    if ($data == 1) {
-      $res = array('tipo' => 'success', 'mensaje' => 'Representante eliminado con exito');
-    } else {
-      $res = array('tipo' => 'warning', 'mensaje' => 'Error al eliminar');
-    }
-
-    echo json_encode($res, JSON_UNESCAPED_UNICODE);
     die();
   }
 
@@ -137,7 +112,7 @@ class Representantes extends Controller
   {
 
     // CARGAR DATOS DE LA BD A DOMPDF
-    $data = $this->model->getRepresentantes();
+    $data = $this->model->getProfesores();
 
     $rows = '';
     foreach($data as $datos){
@@ -149,7 +124,7 @@ class Representantes extends Controller
           <td>' . $datos['apellido'] . '</td>
           <td>' . $datos['fecha_nac'] . '</td>
           <td>' . $datos['telefono'] . '</td>
-          <td>' . $datos['relacion'] . '</td>
+          <td>' . $datos['correo'] . '</td>
           <td>' . $datos['direccion'] . '</td>
         </tr>
       ';
@@ -176,7 +151,7 @@ class Representantes extends Controller
     $html = '
     <html>
     <head>
-        <title>Reporte de Representantes</title>
+        <title>Reporte de Profesores</title>
         <style>
             body {
               font-family: sans-serif;
@@ -218,10 +193,8 @@ class Representantes extends Controller
     </head>
     <body>
         <img class="logo" src="'.$base64.'" alt="Insignia EBPCP">
-        <h1 class="titulo">Reporte de Representantes</h1>
-        <h2>Directora: '. $_SESSION['usuario'] .'</h2>
+        <h1 class="titulo">Reporte de Profesores</h1>
 
-        <p>Contansia de estudio para el representante '.$data[0]['nombre'] ." ". $data[0]['apellido'].'</p>
         <!-- <h2 class="subTitulo">Reporte clasicon</h2> -->
 
         <table>
@@ -232,7 +205,7 @@ class Representantes extends Controller
                 <th>Apellido</th>
                 <th>Fecha de Nacimiento</th>
                 <th>Telefono</th>
-                <th>Relación</th>
+                <th>Correo</th>
                 <th>Dirección</th>
             </tr>
             '.$rows.'
@@ -247,6 +220,7 @@ class Representantes extends Controller
     $dompdf->render();
 
     // Muestra el PDF en una nueva página
-    $dompdf->stream('reporte-representantes.pdf', ['Attachment' => false]);
+    $dompdf->stream('reporte-profesores.pdf', ['Attachment' => false]);
   }
+
 }

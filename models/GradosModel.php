@@ -36,7 +36,14 @@ class GradosModel extends Query
   {
     $sql = "DELETE FROM grados WHERE id = ?";
     $datos = array($id);
-    return $this->save($sql, $datos);
+
+    $eliminado = $this->save($sql, $datos);
+
+    $sqlUpdateAI = ["SET @count = 0;", "UPDATE grados SET id = @count:=@count+1;" , "ALTER TABLE grados AUTO_INCREMENT = 1;"];
+
+    $this->multiQueryU($sqlUpdateAI);
+
+    return $eliminado;
   }
 
   
@@ -59,5 +66,13 @@ class GradosModel extends Query
 
   }
 
-  
+  public function comprobarE($id)
+  {
+    $sql = "SELECT g.id as id_grados, p.id as id_profes
+    FROM grados g
+    INNER JOIN profesores p
+    ON g.id = p.id_grado
+    WHERE g.id = $id";
+    return $this->select($sql);
+  }
 }

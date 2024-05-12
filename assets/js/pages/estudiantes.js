@@ -111,7 +111,6 @@ $(document).ready(function () {
         data: { query: query },
         dataType: "json",
         success: function (data) {
-          console.log(data);
           $("#representanteLista").empty();
           $.each(data, function (key, value) {
             var representanteItem = $("<p>")

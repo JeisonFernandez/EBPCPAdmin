@@ -11,7 +11,11 @@
 <div class="card shadow mb-4">
   <div class="card-header py-3">
     <div class="d-sm-flex align-items-center justify-content-between mb-4 resposive-ch">
-      <h1 class="h2 mb-0 text-gray-800">Historico de los Estudiantes</h1>
+      <h1 class="h2 mb-0 text-gray-800 text-center">Historico de los Estudiantes</h1>
+      <div class="">
+        <a href="Historico/generarPdf" target="_blank" class="btn btn-danger" type="button"><i
+            class="fas fa-file-pdf"></i></a>
+      </div>
        <!-- <button id="btnNewHistorico" class="btn btn-primary" type="button">Nuevo Historico <i
           class="fas fa-plus"></i></button>  -->
     </div>

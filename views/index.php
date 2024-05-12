@@ -66,6 +66,10 @@
                                             </div>
 
                                             <button class="btn btn-primary btn-user btn-block" type="submit">Login</button>
+
+                                            <div class="text-center mt-3">
+                                                <a id="btnRecovery" href="">¿Olvidaste tu contraseña?</a>
+                                            </div>
                                         </form>
 
                                     </div>

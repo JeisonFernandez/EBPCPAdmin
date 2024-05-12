@@ -77,14 +77,24 @@ let tblHistorico;
   
   
   function eliminar(id) {
-    const url = base_url + "Historico/eliminar/" + id;
-    eliminarRegistro(
-      "¿Estas seguro de eliminar?",
-      "El Historico se eliminará de forma permanente.",
-      "Si, Eliminar",
-      url,
-      tblGrados
-    );
+    Swal.fire({
+      title:
+        "Los historicos no se pueden eliminar, proximamente...",
+      showClass: {
+        popup: `
+          animate__animated
+          animate__fadeInUp
+          animate__faster
+        `,
+      },
+      hideClass: {
+        popup: `
+          animate__animated
+          animate__fadeOutDown
+          animate__faster
+        `,
+      },
+    });
   }
   
   

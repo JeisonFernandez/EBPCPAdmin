@@ -88,7 +88,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Datos:</h6>
                         <a class="collapse-item" href="Grados"><i class="fas fa-graduation-cap"></i> Grados</a>
-                        <a class="collapse-item" href="Roles"><i class="fas fa-chalkboard-teacher"></i> Profesores</a>
+                        <a class="collapse-item" href="Profesores"><i class="fas fa-chalkboard-teacher"></i> Profesores</a>
                     </div>
                 </div>
             </li>
@@ -121,12 +121,12 @@
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
-            <div class="sidebar-card d-none d-lg-flex">
+            <!-- <div class="sidebar-card d-none d-lg-flex">
                 <img class="sidebar-card-illustration mb-2" src="<?= BASE_URL ?>assets/img/undraw_rocket.svg" alt="...">
                 <p class="text-center mb-2"><strong>EBPCP Admin</strong> Documentación como usar la herramienta EBPCP Admin.</p>
                 <a class="btn btn-success btn-sm" href="#">Documentación</a>
             </div>
-
+ -->
 
         </ul>
         <!-- End of Sidebar -->

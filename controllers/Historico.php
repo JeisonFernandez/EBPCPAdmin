@@ -1,4 +1,6 @@
 <?php
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class Historico extends Controller
 {
@@ -92,5 +94,114 @@ class Historico extends Controller
     die();
   }
 
+  public function generarPdf()
+  {
+
+    // CARGAR DATOS DE LA BD A DOMPDF
+    $data = $this->model->getHistorico();
+
+    $rows = '';
+    foreach($data as $datos){
+      $rows .= '
+        <tr>
+
+          <td>' . $datos['nombre_completo'] . '</td>
+          <td>' . $datos['fecha_inicio'] . '</td>
+          <td>' . $datos['fecha_fin'] . '</td>
+          <td>' . $datos['estado_anterior'] . '</td>
+          <td>' . $datos['estado_nuevo'] . '</td>
+        </tr>
+      ';
+    }
+
+    // Crea una instancia de Dompdf
+    $options = new Options();
+    $options->set('isHtml5ParserEnabled', true);
+    $options->set('isPhpEnabled', true);
+    $dompdf = new Dompdf($options);
+
+
+
+    // PONER IMAGENES EN DOMPDF
+    $rutaImagenLocal = 'assets/img/ing.jpg'; // Cambia esto a la ruta de tu imagen local
+    // Lee el contenido de la imagen
+    $contenidoImagen = file_get_contents($rutaImagenLocal);
+    // Codifica la imagen en Base64
+    $imagenBase64 = base64_encode($contenidoImagen);
+    $base64 = "data:image/jpeg;base64,$imagenBase64";
+
+
+    // Carga el contenido HTML (puedes usar una vista o generar HTML manualmente)
+    $html = '
+    <html>
+    <head>
+        <title>Reporte de Profesores</title>
+        <style>
+            body {
+              font-family: sans-serif;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            th, td {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: center;
+            }
+
+            .logo {
+              width: 100px;
+              heigth: 100px;
+            }
+
+            .titulo {
+              display: inline;
+              margin-left: 110px;
+              position: absolute;
+              top: 0;
+            }
+
+            .subTitulo {
+              /* display: inline; */
+              text-align: center;
+            }
+
+            .t-head {
+              background-color: #4e73df;
+              color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <img class="logo" src="'.$base64.'" alt="Insignia EBPCP">
+        <h1 class="titulo">Reporte de Historico</h1>
+
+        <!-- <h2 class="subTitulo">Reporte clasicon</h2> -->
+
+        <table>
+            <tr class="t-head">
+                <th>Estudiante</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Estado Anterior</th>
+                <th>Estado Nuevo</th>
+            </tr>
+            '.$rows.'
+        </table>
+    </body>
+    </html>
+    ';
+
+    $dompdf->loadHtml($html);
+
+    // Renderiza el PDF
+    $dompdf->render();
+
+    // Muestra el PDF en una nueva página
+    $dompdf->stream('reporte-historico.pdf', ['Attachment' => false]);
+  }
   
 }

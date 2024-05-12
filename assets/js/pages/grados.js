@@ -91,14 +91,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 function eliminar(id) {
-  const url = base_url + "Grados/eliminar/" + id;
-  eliminarRegistro(
-    "¿Estas seguro de eliminar?",
-    "El grado se eliminará de forma permanente.",
-    "Si, Eliminar",
-    url,
-    tblGrados
-  );
+  const http = new XMLHttpRequest();
+  const url = base_url + "Grados/comprobarEliminar/" + id;
+
+  http.open("GET", url, true);
+  http.send();
+  http.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      const res = JSON.parse(this.responseText);
+      if (res.tipo == "warning") {
+        Swal.fire({
+          title:
+            "Los grados no pueden eliminarse mientras tengan un profesor asignado. Para eliminar un grado, primero asegúrate de que no tenga ningún profesor asignado.",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        });
+      } else {
+        const urlE = base_url + "Grados/eliminar/" + id;
+        eliminarRegistro(
+          "¿Estas seguro de eliminar?",
+          "El representante se eliminará de forma permanente.",
+          "Si, Eliminar",
+          urlE,
+          tblGrados
+        );
+      }
+    }
+  };
 }
 
 
